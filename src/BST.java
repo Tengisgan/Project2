@@ -21,11 +21,4 @@
 // PIDs: tengisgan and nikolai
 
 
-public class Covid19TrackingManager2 {
 
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-
-    }
-
-}
