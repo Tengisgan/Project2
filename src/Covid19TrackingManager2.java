@@ -26,7 +26,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
-import static java.util.HashMap.entry; 
 
 /**
  * Covid19TrackingManagers is a class that loads in
@@ -48,66 +47,66 @@ public class Covid19TrackingManager2 {
     /**
      * Field that stores the state values
     **/
-    private static HashMap<String, String> states = HashMap.ofEntries(
-        entry.("al", "alabama"),
-        entry.("ak", "alaska"),
-        entry.("az", "arizona"),
-        entry.("ar", "arkansas"),
-        entry.("ca", "california"),
-        entry.("co", "colorado"),
-        entry.("ct", "connecticut"),
-        entry.("de", "delaware"),
-        entry.("fl", "florida"),
-        entry.("ga", "georgia"),
-        entry.("hi", "hawaii"),
-        entry.("id", "idaho"),
-        entry.("il", "illinois"),
-        entry.("in", "indiana"),
-        entry.("ia", "iowa"),
-        entry.("ks", "kansas"),
-        entry.("ky", "kentucky"),
-        entry.("la", "louisiana"),
-        entry.("me", "maine"),
-        entry.("md", "maryland"),
-        entry.("ma", "massachusetts"),
-        entry.("mi", "michigan"),
-        entry.("mn", "minnesota"),
-        entry.("ms", "mississippi"),
-        entry.("mo", "missouri"),
-        entry.("mt", "montana"),
-        entry.("ne", "nebraska"),
-        entry.("nv", "nevada"),
-        entry.("nh", "new hampshire"),
-        entry.("nj", "new jersey"),
-        entry.("nm", "new mexico"),
-        entry.("ny", "new york"),
-        entry.("nc", "north carolina"),
-        entry.("nd", "north dakota"),
-        entry.("oh", "ohio"),
-        entry.("ok", "oklahoma"),
-        entry.("or", "oregon"),
-        entry.("pa", "pennsylvania"),
-        entry.("ri", "rhode island"),
-        entry.("sc", "south carolina"),
-        entry.("sd", "south dakota"),
-        entry.("tn", "tennessee"),
-        entry.("tx", "texas"),
-        entry.("ut", "utah"),
-        entry.("vt", "vermont"),
-        entry.("va", "virginia"),
-        entry.("wa", "washington"),
-        entry.("wv", "west virginia"),
-        entry.("wi", "wisconsin"),
-        entry.("wy", "wyoming"),
-        entry.("as", "american samoa"),
-        entry.("dc", "district of columbia"),
-        entry.("fm", "federated states of micronesia"),
-        entry.("gu", "guam"),
-        entry.("mh", "marshall islands"),
-        entry.("mp", "northern mariana islands"),
-        entry.("pw", "palau"),
-        entry.("pr", "puerto rico"),
-        entry.("vi", "virgin islands")
+    private static HashMap<String, String> states = (HashMap<String, String>) Map.ofEntries(
+    	new AbstractMap.SimpleEntry<>("al", "alabama"),
+        new AbstractMap.SimpleEntry<>("ak", "alaska"),
+        new AbstractMap.SimpleEntry<>("az", "arizona"),
+        new AbstractMap.SimpleEntry<>("ar", "arkansas"),
+        new AbstractMap.SimpleEntry<>("ca", "california"),
+        new AbstractMap.SimpleEntry<>("co", "colorado"),
+        new AbstractMap.SimpleEntry<>("ct", "connecticut"),
+        new AbstractMap.SimpleEntry<>("de", "delaware"),
+        new AbstractMap.SimpleEntry<>("fl", "florida"),
+        new AbstractMap.SimpleEntry<>("ga", "georgia"),
+        new AbstractMap.SimpleEntry<>("hi", "hawaii"),
+        new AbstractMap.SimpleEntry<>("id", "idaho"),
+        new AbstractMap.SimpleEntry<>("il", "illinois"),
+        new AbstractMap.SimpleEntry<>("in", "indiana"),
+        new AbstractMap.SimpleEntry<>("ia", "iowa"),
+        new AbstractMap.SimpleEntry<>("ks", "kansas"),
+        new AbstractMap.SimpleEntry<>("ky", "kentucky"),
+        new AbstractMap.SimpleEntry<>("la", "louisiana"),
+        new AbstractMap.SimpleEntry<>("me", "maine"),
+        new AbstractMap.SimpleEntry<>("md", "maryland"),
+        new AbstractMap.SimpleEntry<>("ma", "massachusetts"),
+        new AbstractMap.SimpleEntry<>("mi", "michigan"),
+        new AbstractMap.SimpleEntry<>("mn", "minnesota"),
+        new AbstractMap.SimpleEntry<>("ms", "mississippi"),
+        new AbstractMap.SimpleEntry<>("mo", "missouri"),
+        new AbstractMap.SimpleEntry<>("mt", "montana"),
+        new AbstractMap.SimpleEntry<>("ne", "nebraska"),
+        new AbstractMap.SimpleEntry<>("nv", "nevada"),
+        new AbstractMap.SimpleEntry<>("nh", "new hampshire"),
+        new AbstractMap.SimpleEntry<>("nj", "new jersey"),
+        new AbstractMap.SimpleEntry<>("nm", "new mexico"),
+        new AbstractMap.SimpleEntry<>("ny", "new york"),
+        new AbstractMap.SimpleEntry<>("nc", "north carolina"),
+        new AbstractMap.SimpleEntry<>("nd", "north dakota"),
+        new AbstractMap.SimpleEntry<>("oh", "ohio"),
+        new AbstractMap.SimpleEntry<>("ok", "oklahoma"),
+        new AbstractMap.SimpleEntry<>("or", "oregon"),
+        new AbstractMap.SimpleEntry<>("pa", "pennsylvania"),
+        new AbstractMap.SimpleEntry<>("ri", "rhode island"),
+        new AbstractMap.SimpleEntry<>("sc", "south carolina"),
+        new AbstractMap.SimpleEntry<>("sd", "south dakota"),
+        new AbstractMap.SimpleEntry<>("tn", "tennessee"),
+        new AbstractMap.SimpleEntry<>("tx", "texas"),
+        new AbstractMap.SimpleEntry<>("ut", "utah"),
+        new AbstractMap.SimpleEntry<>("vt", "vermont"),
+        new AbstractMap.SimpleEntry<>("va", "virginia"),
+        new AbstractMap.SimpleEntry<>("wa", "washington"),
+        new AbstractMap.SimpleEntry<>("wv", "west virginia"),
+        new AbstractMap.SimpleEntry<>("wi", "wisconsin"),
+        new AbstractMap.SimpleEntry<>("wy", "wyoming"),
+        new AbstractMap.SimpleEntry<>("as", "american samoa"),
+        new AbstractMap.SimpleEntry<>("dc", "district of columbia"),
+        new AbstractMap.SimpleEntry<>("fm", "federated states of micronesia"),
+        new AbstractMap.SimpleEntry<>("gu", "guam"),
+        new AbstractMap.SimpleEntry<>("mh", "marshall islands"),
+        new AbstractMap.SimpleEntry<>("mp", "northern mariana islands"),
+        new AbstractMap.SimpleEntry<>("pw", "palau"),
+        new AbstractMap.SimpleEntry<>("pr", "puerto rico"),
+        new AbstractMap.SimpleEntry<>("vi", "virgin islands")
     );
 
     /**
@@ -119,7 +118,7 @@ public class Covid19TrackingManager2 {
      * Function to load data from a file into the BST
     **/
     public void load(String[] params){
-        if (params.length() != 2){
+        if (params.length != 2){
             System.out.println("invalid load params");
             return;
         }
@@ -129,7 +128,7 @@ public class Covid19TrackingManager2 {
      * Function to remove data of a specified quality from the BST
     **/
     public void remove(String[] params){
-        if (params.length() != 2){
+        if (params.length != 2){
             System.out.println("invalid remove params");
             return;
         }
@@ -146,8 +145,8 @@ public class Covid19TrackingManager2 {
      * Function to print the BST into a file
     **/
     public void dumpBST(String[] params){
-        if (params.length() != 2){
-            System.out.prinln("invalid dump params");
+        if (params.length != 2){
+            System.out.println("invalid dump params");
             return;
         }
     }

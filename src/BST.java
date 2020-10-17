@@ -20,5 +20,3 @@
 // Names: Tengis Gantulga and Nikolai Long
 // PIDs: tengisgan and nikolai
 
-
-
