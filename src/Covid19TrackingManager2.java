@@ -118,9 +118,87 @@ public class Covid19TrackingManager2 {
      * Function to load data from a file into the BST
     **/
     public void load(String[] params){
+        // if load has been called with more than just the filename
         if (params.length != 2){
             System.out.println("invalid load params");
             return;
+        }
+        String filename = params[1];
+
+        // try to open the file
+        try { 
+            Scanner input = new Scanner(new File(filename));
+            input.next(); // skip the headder line
+
+            int count = 0;
+            while (input.hasNext()) { 
+                String strRow = input.next();
+                String[] newData = strRow.split(",", -1); // split the csv - including the empty elements
+
+                // if the row is not the right size or blank, continue
+                if (newData.length < 10 || strRow.trim().equals("")) { 
+                    continue;
+                }
+
+                // if state, date, or quality is empty, continue
+                if (newData[0].equals("") || newData[1].equals("") ||
+                    newData[8].equals("") || newData[0].length() != 8) { 
+                    System.out.println("Discard invalid record");
+                    continue;
+                }
+
+                // if the state is not valid, continue
+                if (states.get(newData[1].toLowerCase()) == null) { 
+                    System.out.println("State of " + newData[1] +
+                        " does not exist");
+                    continue;
+                }
+
+                // attempt to find the data in the bst
+                String[] existingData = bst.find(newData);
+
+                // if the bst does not contain the data, add the new data
+                if (existingData == null) { 
+                    bst.insert(newData);
+                    count++;
+                    continue;
+                }
+                
+                // if new data has a better grade than the existing data
+                // replace the old with the new
+                if (bst.compareGrades(existingData, newData)) {
+                    System.out.println("Data has been updated for "
+                        + newData[1] + " " + newData[0]);
+                    bst.replace(existingData, newData);
+                    count++;
+                    continue;
+                }
+
+                // if there are elements in the old data that can be updated,
+                // update them
+                if (bst.updateData(existingData, newData)) {
+                    count++;
+                    System.out.println("Data has been updated f"
+                        + "or the missing data in " 
+                            + newData[1]);
+                }
+
+                // there are no elements to be updated,
+                // so the new data is completely rejected
+                else {
+                    System.out.println("Low quality data"
+                        + " rejected for " + newData[1]);
+                }
+            }
+
+            System.out.println("Finished loading " + filename + " file");
+            System.out.println(count + " records have been loaded");
+            input.close();
+        }
+
+        // invalid filename parameter
+        catch (FileNotFoundException e) {
+            System.out.println("File " + filename + " was not found");
         }
     }
 
@@ -128,27 +206,88 @@ public class Covid19TrackingManager2 {
      * Function to remove data of a specified quality from the BST
     **/
     public void remove(String[] params){
+    	// if remove was called with more than a grade quality identifier
         if (params.length != 2){
             System.out.println("invalid remove params");
             return;
         }
+        
+        // remove records from the bst
+        String grade = params[1];
+        int removed = bst.removeGrade(grade);
+        
+        System.out.println(Integer.toString(removed) + " records with quality grade lower or equal to " + grade + " have been removed");
     }
 
     /**
      * Function to seach for and print specified data from the BST 
     **/
     public void search(String[] params){
-
+    	// if search is called with no flags, search for the latest date
+    	String latestDate = bst.getLatestDate();
+    	String[] newParams = {"search", "-D", latestDate};
+    	if (params.length == 1) {
+    		params = newParams;
+    	}
+    	
+    	// -S
+    	if (params[1].equals("-S")) {
+    		bst.printState(params[2]);
+    		return;
+    	}
+    	
+    	// -C
+    	if (params[1].equals("-C")) {
+    		bst.printCases(Integer.parseInt(params[2]));
+    		return;
+    	}
+    	
+    	// -T
+    	if (params[1].equals("-T")) {
+    		if (params.length == 5 && params[3].equals("-D")) {
+    			latestDate = params[4];
+    		}
+    		bst.printAverage(Integer.parseInt(params[2]), latestDate);
+    		return;
+    	}
+    	
+    	// -N
+    	if (params[1].equals("-N")) {
+    		if (params.length == 5 && params[3].equals("-D")) {
+    			latestDate = params[4];
+    		}
+    		bst.printNumber(Integer.parseInt(params[2]), latestDate);
+    		return;
+    	}
+    	
+    	// -Q
+    	if (params[1].equals("-Q")) {
+    		bst.printQuality(params[2]);
+    		return;
+    	}
+    	
+    	// -D
+    	if (params[1].equals("-D")) {
+    		bst.printDate(params[2]);
+    		return;
+    	}
+    	
+    	System.out.println("search error");
     }
     
     /**
-     * Function to print the BST into a file
+     * Function to print the BST
     **/
     public void dumpBST(String[] params){
+    	// if dump was called with more than a print identifier
         if (params.length != 2){
             System.out.println("invalid dump params");
             return;
         }
+        
+        int id = Integer.parseInt(params[1]);
+        int records = bst.sortedPrint(id);
+        System.out.println(Integer.toString(records) + " records have been printed");
     }
 
     /**
@@ -176,7 +315,7 @@ public class Covid19TrackingManager2 {
                 System.out.println("input parse fail");
             }
         }
+        
         inpt.close();
     }
-
 }

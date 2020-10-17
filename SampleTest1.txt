@@ -1,0 +1,16 @@
+load Sample_Input1.csv
+search 
+search -S VT
+search -S ViRginia 
+search -Q A
+search -Q C -S SC
+search -Q C -S SC -D 07/29/2020
+search -Q C -S SC -D 07/29/2021
+	
+	dumpBST 1
+dumpBST 2
+search -C 1
+search -N 13
+search -T 12
+remove C
+dumpBST 1
