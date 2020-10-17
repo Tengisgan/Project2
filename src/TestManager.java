@@ -20,5 +20,41 @@
 // Names: Tengis Gantulga and Nikolai Long
 // PIDs: tengisgan and nikolai
 
+import java.io.FileNotFoundException;
+import student.TestCase;
 
+/* Test class for Covid19TrackingManager2
+ * 
+ * @author Tengis Gantulga and Nikolai Long
+ * @version 2020.09.29
+ */
+public class TestManager extends TestCase {
+
+
+    /* nohting to set up
+     */
+    public void setUp() {
+        // nothing to set up
+    }
+
+    /* the one and only test
+     * @throws FileNotFoundException 
+     */
+    public void test1() throws FileNotFoundException {
+        String[] params = {"SampleTest1.txt"};
+        Covid19TrackingManager2.main(params);
+        assertNotNull(params);
+    }
+
+    /* test 2
+     * @throws FileNotFoundException 
+     */
+    public void test2() throws FileNotFoundException {
+        String[] params = {"SampleTest2.txt"};
+        Covid19TrackingManager2.main(params);
+        assertNotNull(params);
+    }
+
+
+}
 

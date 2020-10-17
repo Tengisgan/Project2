@@ -1,0 +1,18 @@
+search
+dumpBST 1
+dumpBST 2
+
+load Sample_Input2.csv
+search -C 1
+search -Q G
+search -S hhhhh
+search -Q A -D 09/222/2020
+search -S New york
+search -S New jersey
+
+search -T 23
+search -D 09/22/2021
+search -T 100 -D 09/22/2020
+	remove A
+	
+	dumpBST 1
