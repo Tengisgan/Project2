@@ -137,28 +137,30 @@ public class BST {
 		return "";
 	}
 	
-	public void printState(String state) {
-		
+	public int printState(String state) {
+		return 0;
 	}
 	
-	public void printCases(int numCases) {
-		
+	public int printCases(int numCases, String date) {
+		return 0;
 	}
 	
-	public void printAverage(int avg, String date) {
-		
+	public String[] printAverage(int avg, String date) {
+		String[] re = {"0", "-", "-"};
+		return re;
 	}
 	
-	public void printNumber(int num, String date) {
-		
+	public String[] printNumber(int num, String date) {
+		String[] re = {"0", "-", "-"};
+		return re;
 	}
 	
-	public void printQuality(String quality) {
-		
+	public int printQuality(String quality, String state, String date) {
+		return 0;
 	}
 	
-	public void printDate(String date) {
-		
+	public int printDate(String date) {
+		return 0;
 	}
 	
 }

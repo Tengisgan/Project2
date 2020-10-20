@@ -252,7 +252,7 @@ public class Covid19TrackingManager2 {
     		if (num == -1) return;
     		System.out.println(Integer.toString(num) + 
     				" states have daily numbers of positive cases greater than or equal to " + 
-    				params[2] + " for at least 7 days continuously")
+    				params[2] + " for at least 7 days continuously");
     		return;
     	}
     	
