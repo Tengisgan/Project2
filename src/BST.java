@@ -30,60 +30,15 @@ import java.util.ArrayList;
  * @version 2020.10.12
  */
 public class BST {
-	public class TreeNode {
-		TreeNode left;
-		TreeNode right;
-		String state;
-		ArrayList<Data> data;
-		
-		public TreeNode() {}
-		
-		public TreeNode(String[] data) {
-			this.left = fly;
-			this.right = fly;
-			state = data[1];
-			this.data = new ArrayList<Data>();
-		}
-		
-		public void sortTreeNode() {
-			for (int i = 1; i < this.data.size(); i++) {
-				Data current = this.data.get(i);
-				for (int j = 0; j < i; j++) {
-					if (current.data[0].compareTo(this.data.get(j).data[0]) > 0) {
-						Data placeHolder = this.data.get(j);
-						this.data.set(j, current);
-						this.data.set(i, placeHolder);
-					}
-				}
-			}
-		}
-	}
-	
-	public class Data extends TreeNode {
-		String[] data;
-		
-		public Data(String[] data) {
-			this.data = data;
-		}
-	}
-	
-	public class Flyweight extends TreeNode {
-		TreeNode left = null;
-		TreeNode right = null;
-		String state = null;
-		Data[] data = null;
-		
-		public Flyweight() {
-			
-		}
-	}
-	
-	/**
-	 * BST Fields
-	 */
-	private TreeNode root;
-	private Flyweight fly;
+    
+    /**
+     * BST Fields
+     */
+    private TreeNode root;
+    private Flyweight fly;
     private int numNodes;
+    
+	
 	
 	public BST() {
 		fly = new Flyweight();
@@ -91,26 +46,49 @@ public class BST {
 		numNodes = 0;
 	}
 	
+	//have to do in order traversal because it will return a tree
+	
 	public TreeNode find(String state, TreeNode node) {
-		if (state.equals(node.state) || (node.left instanceof Flyweight && node.right instanceof Flyweight)) {
-			return node;
-		}
-		else if (state.compareTo(node.state) < 0) {
-			return this.find(state, node.left);
-		}
-		return this.find(state, node.right);
+	    if (node.equals(fly)) {
+	        return null;
+	    }
+	    
+	    if (node.getData().getState().equalsIgnoreCase(state)) {
+	        return node; 
+	    }
+	    
+	    if (node.getData().getState().compareTo(state) < 0) {
+	        return find(state, node.left);
+	    }
+	    else {
+	        return find(state, node.right);
+	    }
+	    
 	}
 	
-	public void insert(String[] data) {
-		TreeNode found = this.find(data[1], root);
-		if (found instanceof Flyweight) {
-			
-		}
-		else {
-			this.find(data[1], root);
-		}
+	public void insert(TreeNode current, TreeNode node) {
+	    if (current.equals(fly)) {
+	        current = node;
+	    }
+	    
+	    else {
+	        if (node.getData().getState().compareTo(current.getData().getState()) == 0) {
+	            if (node.getData().getDate().compareTo(current.getData().getDate()) < 0) {
+	                insert(current.left, node);
+	            }
+	            else {
+	                insert(current.right, node);
+	            }
+	        }
+	        
+	        else if (node.getData().getState().compareTo(current.getData().getState()) < 0) {
+	            insert(current.left, node);
+	        }
+	        else {
+	            insert(current.right, node);
+	        }
+	    }
 	}
-	
 	
 	
 	public boolean compareGrades() {
