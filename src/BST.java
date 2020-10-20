@@ -67,32 +67,58 @@ public class BST {
 	    
 	}
 	
-	public void insert(TreeNode current, TreeNode node) {
-	    if (current instanceof Flyweight) {
+	public TreeNode insert(TreeNode current, TreeNode node) {
+	    System.out.println("enter insert");
+	    System.out.println(current);
+	    if (current.equals(fly)) {  
+	        System.out.println("Enter if statement");
 	        current = node;
+	        return current;
 	    }
 	    
 	    else {
+	        
 	        if (node.getData().getState().compareTo(current.getData().getState()) == 0) {
 	            if (node.getData().getDate().compareTo(current.getData().getDate()) < 0) {
-	                insert(current.left, node);
+	                current.left = insert(current.left, node);
 	            }
 	            else {
-	                insert(current.right, node);
+	                current.right = insert(current.right, node);
 	            }
 	        }
 	        
 	        else if (node.getData().getState().compareTo(current.getData().getState()) < 0) {
-	            insert(current.left, node);
+	            current.left = insert(current.left, node);
 	        }
 	        else {
-	            insert(current.right, node);
+	            
+	            current.right = insert(current.right, node);
 	        }
 	    }
+	    return current;
 	}
 	
+	
+	public void insert(TreeNode data) {
+	    root = insert(root, data);
+	    this.numNodes++;
+	}
+	
+    public boolean isEmpty() {
+        return (root.equals(fly));
+    }
+	
+    
+    
+    public void remove(TreeNode current, TreeNode node) {
+        
+    }
+    
 	public void replace(TreeNode existingData, TreeNode newData) {
-		
+		TreeNode newExistingData = this.find(existingData.getData().getState(), this.root);
+		if (newExistingData != fly) {
+		    //need remove function
+		}
 	}
 	
 	public boolean updateData(TreeNode existingData, TreeNode newData) {
@@ -134,4 +160,5 @@ public class BST {
 	public void printDate(String date) {
 		
 	}
+	
 }
