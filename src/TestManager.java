@@ -46,14 +46,14 @@ public class TestManager extends TestCase {
         assertNotNull(params);
     }
 
-    /* test 2
-     * @throws FileNotFoundException 
-     */
-    public void test2() throws FileNotFoundException {
-        String[] params = {"SampleTest2.txt"};
-        Covid19TrackingManager2.main(params);
-        assertNotNull(params);
-    }
+//    /* test 2
+//     * @throws FileNotFoundException 
+//     */
+//    public void test2() throws FileNotFoundException {
+//        String[] params = {"SampleTest2.txt"};
+//        Covid19TrackingManager2.main(params);
+//        assertNotNull(params);
+//    }
 
 
 }

@@ -47,7 +47,7 @@ public class Covid19TrackingManager2 {
     /**
      * Field that stores the state values
     **/
-    private static HashMap<String, String> states = (HashMap<String, String>) Map.ofEntries(
+    private static Map<String, String> states = Map.ofEntries(
     	new AbstractMap.SimpleEntry<>("al", "alabama"),
         new AbstractMap.SimpleEntry<>("ak", "alaska"),
         new AbstractMap.SimpleEntry<>("az", "arizona"),
@@ -133,64 +133,70 @@ public class Covid19TrackingManager2 {
             int count = 0;
             while (input.hasNext()) { 
                 String strRow = input.next();
-                String[] newData = strRow.split(",", -1); // split the csv - including the empty elements
+                String[] newDataAr = strRow.split(",", -1); // split the csv - including the empty elements
 
                 // if the row is not the right size or blank, continue
-                if (newData.length < 10 || strRow.trim().equals("")) { 
+                if (newDataAr.length < 10 || strRow.trim().equals("")) { 
                     continue;
                 }
 
                 // if state, date, or quality is empty, continue
-                if (newData[0].equals("") || newData[1].equals("") ||
-                    newData[8].equals("") || newData[0].length() != 8) { 
+                if (newDataAr[0].equals("") || newDataAr[1].equals("") ||
+                    newDataAr[8].equals("") || newDataAr[0].length() != 8) { 
                     System.out.println("Discard invalid record");
                     continue;
                 }
 
                 // if the state is not valid, continue
-                if (states.get(newData[1].toLowerCase()) == null) { 
-                    System.out.println("State of " + newData[1] +
+                if (states.get(newDataAr[1].toLowerCase()) == null) { 
+                    System.out.println("State of " + newDataAr[1] +
                         " does not exist");
                     continue;
                 }
 
-                // attempt to find the data in the bst
-                String[] existingData = bst.find(newData);
+                // attempt to find the data in the bst and create newData
+                Data newData = new Data(newDataAr);
+                TreeNode existingData = bst.find(newData.getState(), bst.root).getData();
 
+                // INSERT NEW DATA
                 // if the bst does not contain the data, add the new data
                 if (existingData == null) { 
-                    bst.insert(newData);
+                    bst.insert(bst.root, newData);
                     count++;
+                    bst.numNodes++;
                     continue;
                 }
                 
+                // REPLACE OLD DATA WITH NEW DATA
                 // if new data has a better grade than the existing data
                 // replace the old with the new
-                if (bst.compareGrades(existingData, newData)) {
+                if (newData.compareGrades(existingData)) {
                     System.out.println("Data has been updated for "
-                        + newData[1] + " " + newData[0]);
+                        + newData.getState() + " " + newData.getDate());
                     bst.replace(existingData, newData);
                     count++;
                     continue;
                 }
 
+                // UPDATE OLD DATA WITH ELEMENTS OF NEW DATA
                 // if there are elements in the old data that can be updated,
                 // update them
                 if (bst.updateData(existingData, newData)) {
-                    count++;
                     System.out.println("Data has been updated f"
                         + "or the missing data in " 
-                            + newData[1]);
+                            + newData.getState());
+                    count++;
+                    continue;
                 }
 
+                // THROW OUT NEW DATA
                 // there are no elements to be updated,
                 // so the new data is completely rejected
-                else {
-                    System.out.println("Low quality data"
-                        + " rejected for " + newData[1]);
-                }
+                System.out.println("Low quality data"
+                		+ " rejected for " + newData.getState());
             }
 
+            System.out.println(bst.root.getData().getState());
             System.out.println("Finished loading " + filename + " file");
             System.out.println(count + " records have been loaded");
             input.close();
@@ -292,8 +298,9 @@ public class Covid19TrackingManager2 {
 
     /**
      * Function to handle the command inputs (from a file)
+     * @throws FileNotFoundException 
     **/
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner inpt = new Scanner(new File(args[0]));
         String[] params;
 

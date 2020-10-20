@@ -34,9 +34,9 @@ public class BST {
     /**
      * BST Fields
      */
-    private TreeNode root;
+    public TreeNode root;
     private Flyweight fly;
-    private int numNodes;
+    public int numNodes;
     
 	
 	
@@ -50,7 +50,7 @@ public class BST {
 	
 	public TreeNode find(String state, TreeNode node) {
 	    if (node.equals(fly)) {
-	        return null;
+	        return fly;
 	    }
 	    
 	    if (node.getData().getState().equalsIgnoreCase(state)) {
@@ -58,6 +58,7 @@ public class BST {
 	    }
 	    
 	    if (node.getData().getState().compareTo(state) < 0) {
+	    	System.out.println("left");
 	        return find(state, node.left);
 	    }
 	    else {
@@ -90,24 +91,19 @@ public class BST {
 	    }
 	}
 	
-	
-	public boolean compareGrades() {
-		return false;
-	}
-	
-	public void replace() {
+	public void replace(TreeNode existingData, TreeNode newData) {
 		
 	}
 	
-	public boolean updateData() {
+	public boolean updateData(TreeNode existingData, TreeNode newData) {
 		return false;
 	}
 	
-	public int removeGrade() {
+	public int removeGrade(String quality) {
 		return 0;
 	}
 	
-	public int sortedPrint() {
+	public int sortedPrint(int type) {
 		return 0;
 	}
 	
@@ -115,27 +111,27 @@ public class BST {
 		return "";
 	}
 	
-	public void printState() {
+	public void printState(String state) {
 		
 	}
 	
-	public void printCases() {
+	public void printCases(int numCases) {
 		
 	}
 	
-	public void printAverage() {
+	public void printAverage(int avg, String date) {
 		
 	}
 	
-	public void printNumber() {
+	public void printNumber(int num, String date) {
 		
 	}
 	
-	public void printQuality() {
+	public void printQuality(String quality) {
 		
 	}
 	
-	public void printDate() {
+	public void printDate(String date) {
 		
 	}
 }

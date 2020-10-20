@@ -17,4 +17,7 @@ public class Data extends TreeNode {
             return data[1];
         }
         
+        public boolean compareGrades(TreeNode existing) {
+        	return false;
+        }
 }
