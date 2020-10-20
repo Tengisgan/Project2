@@ -196,7 +196,7 @@ public class Covid19TrackingManager2 {
                 		+ " rejected for " + newData.getState());
             }
 
-            System.out.println(bst.root.getData().getState());
+//            System.out.println(bst.root.getData().getState());
             System.out.println("Finished loading " + filename + " file");
             System.out.println(count + " records have been loaded");
             input.close();

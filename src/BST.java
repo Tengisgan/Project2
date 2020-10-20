@@ -68,7 +68,7 @@ public class BST {
 	}
 	
 	public void insert(TreeNode current, TreeNode node) {
-	    if (current.equals(fly)) {
+	    if (current instanceof Flyweight) {
 	        current = node;
 	    }
 	    
