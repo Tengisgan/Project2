@@ -26,18 +26,22 @@ public class TestBST extends TestCase {
         bst.root = bst.insert(bst.root, data1);
         
         
-        bst.insert(bst.root, data2);
+        bst.insert(bst.root, data1);
         
         bst.insert(bst.root, new String[] {"0", "VA"});
+        
+        TreeNode foundNode = bst.find("VA", bst.root);
+        System.out.println(foundNode.getData().getState());
 
         assertFalse(bst.isEmpty());
+        System.out.println(bst.root.getData().getState());
         assertEquals(bst.root.getData().getDate(), "1");      
         assertEquals(bst.numNodes, 3);
 
     }
     
     public void testFind() {
-        bst.insert(bst.root, data1);
+        bst.root = bst.insert(bst.root, data1);
         TreeNode foundNode = bst.find("VA", bst.root);
         assertEquals(foundNode, bst.root);
         assertEquals(foundNode.left, bst.root.left);

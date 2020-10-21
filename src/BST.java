@@ -53,12 +53,11 @@ public class BST {
 	        return fly;
 	    }
 	    
-	    if (node.getData().getState().equalsIgnoreCase(state)) {
+	    if (node.getData().getState().equals(state)) {
 	        return node; 
 	    }
 	    
 	    if (node.getData().getState().compareTo(state) < 0) {
-	    	System.out.println("left");
 	        return find(state, node.left);
 	    }
 	    else {
@@ -70,7 +69,8 @@ public class BST {
 	public TreeNode insert(TreeNode current, String[] value) {
 	    if (current.equals(fly)) {
 	        numNodes++; 
-	        return new Data(fly, value);
+	        current = new Data(fly, value);
+	        return current;
 	    }
 	    
 	    if (value[1].compareTo(current.getData().getState()) == 0) {
@@ -94,8 +94,6 @@ public class BST {
     public boolean isEmpty() {
         return (root.equals(fly));
     }
-	
-    
     
     public TreeNode remove(TreeNode current, String[] value) {
         if (current.equals(fly)) {
@@ -103,15 +101,26 @@ public class BST {
         }
         return null;
     }
-    
-	public void replace(TreeNode existingData, TreeNode newData) {
+	
+	public String convertDate(String oldDate) {
+		String newDate = oldDate.substring(4, 6) + "/" + 
+				oldDate.substring(6, 8) + "/" +
+				oldDate.substring(0, 4);
+		return newDate;
+	}
+	
+	public boolean compareGrades(TreeNode existingData, String[] newDataAr) {
+		return false;
+	}
+	
+	public void replace(TreeNode existingData, String[] newData) {
 		TreeNode newExistingData = this.find(existingData.getData().getState(), this.root);
 		if (newExistingData != fly) {
 		    //need remove function
 		}
 	}
 	
-	public boolean updateData(TreeNode existingData, TreeNode newData) {
+	public boolean updateData(TreeNode existingData, String[] newData) {
 		return false;
 	}
 	

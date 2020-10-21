@@ -146,34 +146,55 @@ public class Covid19TrackingManager2 {
                     System.out.println("Discard invalid record");
                     continue;
                 }
+                
+                // Save the new state string
+                String newState = states.get(newDataAr[1].toLowerCase());
 
                 // if the state is not valid, continue
-                if (states.get(newDataAr[1].toLowerCase()) == null) { 
+                if (newState == null) { 
                     System.out.println("State of " + newDataAr[1] +
                         " does not exist");
                     continue;
                 }
+                
+                // Fix the state
+                if (newState.length() != 2) {
+                	newState = newDataAr[1].toUpperCase();
+                }
+                else {
+                	newState = newState.toUpperCase();
+                }
+                
+                // Save the new date string
+                String newDate = bst.convertDate(newDataAr[0]);
+                
+                // Save the new strings back into new data
+                newDataAr[0] = newDate;
+                newDataAr[1] = newState;
 
-                // attempt to find the data in the bst and create newData
-                Data newData = new Data(newDataAr);
-                TreeNode existingData = bst.find(newData.getState(), bst.root).getData();
+                // attempt to find the data in the bst
+                TreeNode existingData = bst.find(newState, bst.root).getData();
 
                 // INSERT NEW DATA
                 // if the bst does not contain the data, add the new data
                 if (existingData == null) { 
-                    bst.insert(bst.root, newData);
+                	if (bst.numNodes == 0) {
+                		bst.root = bst.insert(bst.root, newDataAr);
+                	}
+                	else {
+                		bst.insert(bst.root, newDataAr);
+                	}
                     count++;
-                    bst.numNodes++;
                     continue;
                 }
                 
                 // REPLACE OLD DATA WITH NEW DATA
                 // if new data has a better grade than the existing data
                 // replace the old with the new
-                if (newData.compareGrades(existingData)) {
+                if (bst.compareGrades(existingData, newDataAr)) {
                     System.out.println("Data has been updated for "
-                        + newData.getState() + " " + newData.getDate());
-                    bst.replace(existingData, newData);
+                        + newState + " " + newDate);
+                    bst.replace(existingData, newDataAr);
                     count++;
                     continue;
                 }
@@ -181,10 +202,10 @@ public class Covid19TrackingManager2 {
                 // UPDATE OLD DATA WITH ELEMENTS OF NEW DATA
                 // if there are elements in the old data that can be updated,
                 // update them
-                if (bst.updateData(existingData, newData)) {
+                if (bst.updateData(existingData, newDataAr)) {
                     System.out.println("Data has been updated f"
                         + "or the missing data in " 
-                            + newData.getState());
+                            + newState);
                     count++;
                     continue;
                 }
@@ -193,13 +214,14 @@ public class Covid19TrackingManager2 {
                 // there are no elements to be updated,
                 // so the new data is completely rejected
                 System.out.println("Low quality data"
-                		+ " rejected for " + newData.getState());
+                		+ " rejected for " + newState);
             }
 
 //            System.out.println(bst.root.getData().getState());
             System.out.println("Finished loading " + filename + " file");
             System.out.println(count + " records have been loaded");
             input.close();
+            System.out.println(bst.isEmpty());
         }
 
         // invalid filename parameter
