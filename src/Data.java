@@ -11,12 +11,10 @@ public class Data extends TreeNode {
         }
         
         public String getDate() {
-            System.out.println("getDate() : " + data);
             return data[0];
         }
         
         public String getState() {
-            System.out.println("getState() : " + data);
             return data[1];
         }
         

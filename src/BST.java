@@ -68,8 +68,8 @@ public class BST {
 	}
 	
 	public TreeNode insert(TreeNode current, String[] value) {
-	    System.out.println("LOOKING: " + current);
 	    if (current.equals(fly)) {
+	        numNodes++; 
 	        return new Data(fly, value);
 	    }
 	    
