@@ -67,41 +67,28 @@ public class BST {
 	    
 	}
 	
-	public TreeNode insert(TreeNode current, TreeNode node) {
-	    System.out.println("enter insert");
-	    System.out.println(current);
-	    if (current.equals(fly)) {  
-	        System.out.println("Enter if statement");
-	        current = node;
-	        return current;
+	public TreeNode insert(TreeNode current, String[] value) {
+	    System.out.println("LOOKING: " + current);
+	    if (current.equals(fly)) {
+	        return new Data(fly, value);
 	    }
 	    
-	    else {
-	        
-	        if (node.getData().getState().compareTo(current.getData().getState()) == 0) {
-	            if (node.getData().getDate().compareTo(current.getData().getDate()) < 0) {
-	                current.left = insert(current.left, node);
-	            }
-	            else {
-	                current.right = insert(current.right, node);
-	            }
-	        }
-	        
-	        else if (node.getData().getState().compareTo(current.getData().getState()) < 0) {
-	            current.left = insert(current.left, node);
-	        }
-	        else {
-	            
-	            current.right = insert(current.right, node);
-	        }
+	    if (value[1].compareTo(current.getData().getState()) == 0) {
+	        if(value[0].compareTo(current.getData().getDate()) < 0) {
+	            current.left = insert(current.left, value);
+            }
+            else {
+                current.right = insert(current.right, value);
+            }
 	    }
+	    else if (value[1].compareTo(current.getData().getState()) < 0) {
+	           current.left = insert(current.left, value);
+	    }
+	    else {
+	        current.right = insert(current.right, value);
+	    }
+	    
 	    return current;
-	}
-	
-	
-	public void insert(TreeNode data) {
-	    root = insert(root, data);
-	    this.numNodes++;
 	}
 	
     public boolean isEmpty() {
@@ -110,8 +97,11 @@ public class BST {
 	
     
     
-    public void remove(TreeNode current, TreeNode node) {
-        
+    public TreeNode remove(TreeNode current, String[] value) {
+        if (current.equals(fly)) {
+            return current;
+        }
+        return null;
     }
     
 	public void replace(TreeNode existingData, TreeNode newData) {

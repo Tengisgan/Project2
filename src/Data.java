@@ -1,7 +1,8 @@
 public class Data extends TreeNode {
         String[] data;
         
-        public Data(String[] data) {
+        public Data(Flyweight fly, String[] data) {
+            super(fly);
             this.data = data;
         }
         
@@ -10,10 +11,12 @@ public class Data extends TreeNode {
         }
         
         public String getDate() {
+            System.out.println("getDate() : " + data);
             return data[0];
         }
         
         public String getState() {
+            System.out.println("getState() : " + data);
             return data[1];
         }
         
