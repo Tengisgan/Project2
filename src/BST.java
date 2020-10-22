@@ -164,7 +164,7 @@ public class BST {
             }
             
         }
-        if (value[1].compareTo(current.getData().getState()) < 0) {
+        else if (value[1].compareTo(current.getData().getState()) < 0) {
             current.left = removeHelper(current.left, value);
         }
         else if (value[1].compareTo(current.getData().getState()) > 0){
