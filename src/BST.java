@@ -155,6 +155,15 @@ public class BST {
             numNodes--;
             return current;
         }
+        if (value[1].equals(current.getData().getState())) {
+            if (value[0].compareTo(current.getData().getDate()) < 0) {
+                current.left = removeHelper(current.left, value);
+            }
+            else if (value[0].compareTo(current.getData().getDate()) > 0) {
+                current.right = removeHelper(current.right, value);
+            }
+            
+        }
         if (value[1].compareTo(current.getData().getState()) < 0) {
             current.left = removeHelper(current.left, value);
         }
@@ -180,7 +189,6 @@ public class BST {
 	
     public void remove(String[] value) {
         root = removeHelper(root, value);
-        
     }
     
 	public String convertDate(String oldDate) {
