@@ -59,6 +59,7 @@ public class TestBST extends TestCase {
         
         assertEquals(bst.find("VA", bst.root).getData().data[0], data1[0]);
         assertEquals(bst.findSD("VA", "1", bst.root).getData().data[0], data1[0]);
+        assertEquals(bst.findSD("VA", "0", bst.root).getData().data[0], data3[0]);
     }
     public void testReturnMinValue() {
         bst.root = bst.insert(bst.root, data1);
