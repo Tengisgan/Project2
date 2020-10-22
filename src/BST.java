@@ -182,12 +182,13 @@ public class BST {
 	public int removeGrade(String grade) {
 	    int removeCounter = 0;
 	    
-	    while 
-	        String gradeFromData = this.findGrade(grade, this.root).getData().getGrade();
-	        int numericalGradeFromData = getNumericalGrade(gradeFromData);
-	        this.remove(this.findGrade(grade, this.root).getData().data);
-	        removeCounter++; 
-	    }
+//	    while 
+//	        String gradeFromData = this.findGrade(grade, this.root).getData().getGrade();
+//	        int numericalGradeFromData = getNumericalGrade(gradeFromData);
+//	        this.remove(this.findGrade(grade, this.root).getData().data);
+//	        removeCounter++; 
+//	    }
+	    return removeCounter;
 	}
 	
     private int getNumericalGrade(String qualityGrade) {
