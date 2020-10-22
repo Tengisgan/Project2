@@ -139,6 +139,17 @@ public class Covid19TrackingManager2 {
                 if (newDataAr.length < 10 || strRow.trim().equals("")) { 
                     continue;
                 }
+                
+                // if all the elements are blank, continue
+                boolean cont = true;
+                for (String i : newDataAr) {
+                	if (!i.equals("")) {
+                		cont = false;
+                	}
+                }
+                if (cont) {
+                	continue;
+                }
 
                 // if state, date, or quality is empty, continue
                 if (newDataAr[0].equals("") || newDataAr[1].equals("") ||
@@ -171,6 +182,7 @@ public class Covid19TrackingManager2 {
                 // Save the new strings back into new data
                 newDataAr[0] = newDate;
                 newDataAr[1] = newState;
+                System.out.println(newState + " " + newDate);
 
                 // attempt to find the data in the bst
                 Data existingData = bst.findSD(newState, newDate, bst.root).getData();
@@ -243,7 +255,7 @@ public class Covid19TrackingManager2 {
         
         // remove records from the bst
         String grade = params[1];
-        int removed = bst.removeGrade(grade);
+        int removed = bst.removeGrade(bst.root, grade);
         
         System.out.println(Integer.toString(removed) + " records with quality grade lower or equal to " + grade + " have been removed");
     }
