@@ -206,7 +206,10 @@ public class Covid19TrackingManager2 {
                 if (bst.root.getData().existingDataGradeIsLessThan(existingDataAr, newDataAr)) {
                     System.out.println("Data has been updated for "
                         + newState + " " + newDate);
-                    bst.replace(existingDataAr, newDataAr);
+                    bst.remove(existingDataAr);
+                    System.out.println(existingDataAr[1]);
+                    bst.insert(bst.root, newDataAr);
+                    //bst.replace(existingDataAr, newDataAr);
                     count++;
                     continue;
                 }
