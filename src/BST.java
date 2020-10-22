@@ -66,6 +66,24 @@ public class BST {
 	    
 	}
 	
+	public TreeNode findSD(String state, String date, TreeNode node) {
+	    if (node.equals(fly)) {
+	        return fly;
+	    }
+	    
+	    if (node.getData().getState().equals(state) && node.getData().getDate().equals(date)) {
+	        return node;
+	    }
+	    
+	    if (node.getData().getState().compareTo(state) < 0) {
+            return find(state, node.left);
+        }
+        else {
+            return find(state, node.right);
+        }
+	    
+	}
+	
 	public TreeNode findGrade(String grade, TreeNode node) {
 	        if (node.equals(fly)) {
 	            return fly;
@@ -153,6 +171,7 @@ public class BST {
 	
     public void remove(String[] value) {
         root = removeHelper(root, value);
+        
     }
     
 	public String convertDate(String oldDate) {
@@ -179,15 +198,24 @@ public class BST {
         return updated;
 	}
 	
-	public int removeGrade(String grade) {
-	    int removeCounter = 0;
+	int removeCounter = 0;
+	
+	public int removeGrade(TreeNode current, String grade) {
+	    int numericalGrade = getNumericalGrade(grade);
 	    
-//	    while 
-//	        String gradeFromData = this.findGrade(grade, this.root).getData().getGrade();
-//	        int numericalGradeFromData = getNumericalGrade(gradeFromData);
-//	        this.remove(this.findGrade(grade, this.root).getData().data);
-//	        removeCounter++; 
-//	    }
+        
+	    if (current.equals(fly)) {
+	        return removeCounter;
+	    }
+	    
+	    removeGrade(current.left, grade);
+	    
+	    if (getNumericalGrade(current.getData().getGrade()) <= numericalGrade) {
+	        this.remove(current.getData().data);
+	        removeCounter++;
+	    }
+	    
+	    removeGrade(current.right, grade);
 	    return removeCounter;
 	}
 	
