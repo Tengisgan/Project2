@@ -139,6 +139,17 @@ public class Covid19TrackingManager2 {
                 if (newDataAr.length < 10 || strRow.trim().equals("")) { 
                     continue;
                 }
+                
+                // if all the elements are blank, continue
+                boolean cont = true;
+                for (String i : newDataAr) {
+                	if (!i.equals("")) {
+                		cont = false;
+                	}
+                }
+                if (cont) {
+                	continue;
+                }
 
                 // if state, date, or quality is empty, continue
                 if (newDataAr[0].equals("") || newDataAr[1].equals("") ||
