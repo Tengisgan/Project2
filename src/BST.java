@@ -66,6 +66,24 @@ public class BST {
 	    
 	}
 	
+	public TreeNode findGrade(String grade, TreeNode node) {
+	        if (node.equals(fly)) {
+	            return fly;
+	        }
+	        
+	        if (node.getData().getGrade().equals(grade)) {
+	            return node; 
+	        }
+	        
+	        if (node.getData().getGrade().compareTo(grade) < 0) {
+	            return findGrade(grade, node.left);
+	        }
+	        else {
+	            return findGrade(grade, node.right);
+	        }
+	        
+	    }
+	
 	public TreeNode insert(TreeNode current, String[] value) {
 	    if (current.equals(fly)) {
 	        numNodes++; 
@@ -94,14 +112,49 @@ public class BST {
     public boolean isEmpty() {
         return (root.equals(fly));
     }
+  
+    public String[] minValue(TreeNode current) {
+        String[] minValue = current.getData().getArray();
+        while (!current.left.equals(fly)) {
+            minValue = root.left.getData().getArray();
+            current = root.left;
+        }
+        return minValue;
+    }
     
-    public TreeNode remove(TreeNode current, String[] value) {
+    
+    public TreeNode removeHelper(TreeNode current, String[] value) {
         if (current.equals(fly)) {
+            numNodes--;
             return current;
         }
-        return null;
+        if (value[1].compareTo(current.getData().getState()) < 0) {
+            current.left = removeHelper(current.left, value);
+        }
+        else if (value[1].compareTo(current.getData().getState()) > 0){
+            current.right = removeHelper(current.right, value);
+        }
+        
+        else {
+            if (current.left.equals(fly)) {
+                return current.right;
+            }
+            else if (root.right.equals(fly)) {
+                return current.left;
+            }
+            
+            current.getData().data = minValue(root.right);
+            
+            current.right = removeHelper(current.right, current.getData().data);
+        }
+        
+        return current;
     }
 	
+    public void remove(String[] value) {
+        root = removeHelper(root, value);
+    }
+    
 	public String convertDate(String oldDate) {
 		String newDate = oldDate.substring(4, 6) + "/" + 
 				oldDate.substring(6, 8) + "/" +
@@ -109,25 +162,40 @@ public class BST {
 		return newDate;
 	}
 	
-	public boolean compareGrades(TreeNode existingData, String[] newDataAr) {
-		return false;
+   public void replace(String[] existingData, String[] newData) {
+        this.remove(existingData);
+        this.insert(this.root, newData);
+    }
+   
+	
+	public boolean updateData(String[] existingData, String[] newData) {
+        boolean updated = false;
+        for (int i = 0; i < existingData.length; i++) {
+            if (existingData[i].equals("") && !newData[i].equals("")) {
+                existingData[i] = newData[i];
+                updated = true;
+            }
+        }
+        return updated;
 	}
 	
-	public void replace(TreeNode existingData, String[] newData) {
-		TreeNode newExistingData = this.find(existingData.getData().getState(), this.root);
-		if (newExistingData != fly) {
-		    //need remove function
-		}
+	public int removeGrade(String grade) {
+	    int removeCounter = 0;
+	    
+	    while 
+	        String gradeFromData = this.findGrade(grade, this.root).getData().getGrade();
+	        int numericalGradeFromData = getNumericalGrade(gradeFromData);
+	        this.remove(this.findGrade(grade, this.root).getData().data);
+	        removeCounter++; 
+	    }
 	}
 	
-	public boolean updateData(TreeNode existingData, String[] newData) {
-		return false;
-	}
-	
-	public int removeGrade(String quality) {
-		return 0;
-	}
-	
+    private int getNumericalGrade(String qualityGrade) {
+        int grade = (700 - ((int) qualityGrade.charAt(0) * 10));
+        return qualityGrade.length() == 1 ? grade : grade + 
+            (44 - ((int) qualityGrade.charAt(1)));
+    }
+
 	public int sortedPrint(int type) {
 		return 0;
 	}

@@ -14,11 +14,16 @@ public class TestBST extends TestCase {
     private BST bst; 
     private String[] data1;
     private String[] data2;
+    private String[] data3;
+    private String[] emptyData;
     
     public void setUp() {
         bst = new BST();
+        
         data1 = new String[] {"1", "VA"};
-        data2 = new String[] {"2", "VA"};
+        data2 = new String[] {"2", "ZA"};
+        data3 = new String[] {"0", "VA"};
+        emptyData = new String[] {"", ""};
     }
     
     public void testInsert() {
@@ -30,11 +35,8 @@ public class TestBST extends TestCase {
         
         bst.insert(bst.root, new String[] {"0", "VA"});
         
-        TreeNode foundNode = bst.find("VA", bst.root);
-        System.out.println(foundNode.getData().getState());
 
         assertFalse(bst.isEmpty());
-        System.out.println(bst.root.getData().getState());
         assertEquals(bst.root.getData().getDate(), "1");      
         assertEquals(bst.numNodes, 3);
 
@@ -45,8 +47,36 @@ public class TestBST extends TestCase {
         TreeNode foundNode = bst.find("VA", bst.root);
         assertEquals(foundNode, bst.root);
         assertEquals(foundNode.left, bst.root.left);
+        bst.insert(bst.root, data2); 
         assertEquals(foundNode.right, bst.root.right);
     }
     
+    public void testReturnMinValue() {
+        bst.root = bst.insert(bst.root, data1);
+        bst.insert(bst.root, data2);
+        bst.insert(bst.root, data3);
+        assertEquals(bst.minValue(bst.root), data3);
+    }
     
+    public void testRemove() {
+        bst.root = bst.insert(bst.root, data1);
+        bst.insert(bst.root, data2);
+        bst.insert(bst.root, data3);
+        bst.remove(data1);
+        bst.remove(data2);
+        bst.remove(data3);
+        assertEquals(bst.find("Something else", bst.root), bst.root);
+    }
+    
+    public void testReplace() {
+        bst.root = bst.insert(bst.root, data1);
+        bst.replace(data1, data2);
+        TreeNode foundNode = bst.find("ZA", bst.root);
+        assertEquals(foundNode, bst.root);
+    }
+    
+    public void testUpdateData() { 
+        bst.updateData(emptyData, data1);
+        assertEquals(emptyData[0], "1");
+    }
 }

@@ -173,7 +173,7 @@ public class Covid19TrackingManager2 {
                 newDataAr[1] = newState;
 
                 // attempt to find the data in the bst
-                TreeNode existingData = bst.find(newState, bst.root).getData();
+                String[] existingData = bst.find(newState, bst.root).getData().getData().getArray();
 
                 // INSERT NEW DATA
                 // if the bst does not contain the data, add the new data
@@ -191,7 +191,7 @@ public class Covid19TrackingManager2 {
                 // REPLACE OLD DATA WITH NEW DATA
                 // if new data has a better grade than the existing data
                 // replace the old with the new
-                if (bst.compareGrades(existingData, newDataAr)) {
+                if (bst.root.getData().existingDataGradeIsLessThan(existingData, newDataAr)) {
                     System.out.println("Data has been updated for "
                         + newState + " " + newDate);
                     bst.replace(existingData, newDataAr);
