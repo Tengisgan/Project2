@@ -155,15 +155,7 @@ public class BST {
             numNodes--;
             return current;
         }
-        if (value[1].equals(current.getData().getState())) {
-            if (value[0].compareTo(current.getData().getDate()) < 0) {
-                current.left = removeHelper(current.left, value);
-            }
-            else if (value[0].compareTo(current.getData().getDate()) > 0) {
-                current.right = removeHelper(current.right, value);
-            }
-            
-        }
+
         if (value[1].compareTo(current.getData().getState()) < 0) {
             current.left = removeHelper(current.left, value);
         }
@@ -171,11 +163,12 @@ public class BST {
             current.right = removeHelper(current.right, value);
         }
         
-        else {
+        else if (value[1].equals(current.getData().getState()) && value[0].equals(current.getData().getDate())) {
             if (current.left.equals(fly)) {
                 return current.right;
             }
-            else if (root.right.equals(fly)) {
+            
+            else if (current.right.equals(fly)) {
                 return current.left;
             }
             
@@ -215,31 +208,22 @@ public class BST {
         return updated;
 	}
 	
-	
+	public TreeNode removeGrade(TreeNode current, String grade) {
+	    if (!current.equals(fly)) {
+	        removeGrade(current.left, grade);
+	        int numericalGrade = getNumericalGrade(current.getData().getGrade());
+	        if (numericalGrade <= getNumericalGrade(grade)) {
+	            this.remove(current.getData().data);
+	        }
+	        removeGrade(current.right, grade);
+	    }
+	    return this.root;
+	}
 	
 	public int removeGrade(String grade) {
-	    int removeCounter = 0;
-	    return removeCounter;
-//	    while (!this.findGrade(this.root, grade).equals(fly)) {
-//	        
-//	    }
-	    
-//	    int numericalGrade = getNumericalGrade(grade);
-//	    
-//        
-//	    if (current.equals(fly)) {
-//	        return removeCounter;
-//	    }
-//	    
-//	    removeGrade(current.left, grade);
-//	    
-//	    if (getNumericalGrade(current.getData().getGrade()) <= numericalGrade) {
-//	        this.remove(current.getData().data);
-//	        removeCounter++;
-//	    }
-//	    
-//	    removeGrade(current.right, grade);
-//	    return removeCounter;
+	    int numNodesBefore = this.numNodes;
+	    root = removeGrade(this.root, grade);
+	    return numNodesBefore - this.numNodes;
 	}
 	
     private int getNumericalGrade(String qualityGrade) {
