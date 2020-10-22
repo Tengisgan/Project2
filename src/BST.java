@@ -71,15 +71,24 @@ public class BST {
 	        return fly;
 	    }
 	    
-	    if (node.getData().getState().equals(state) && node.getData().getDate().equals(date)) {
-	        return node;
-	    }
+	    if (node.getData().getState().equals(state)) {
+	        if(node.getData().getDate().equals(date)) {
+	            return node;
+	        }
+	        
+            if(node.getData().getDate().compareTo(date) < 0) {
+                return findSD(state, date, node.left);
+	            }
+            else {
+                return findSD(state, date, node.right);
+            }
+	    }	    
 	    
-	    if (node.getData().getState().compareTo(state) < 0) {
-            return find(state, node.left);
+	    else if (node.getData().getState().compareTo(state) < 0) {
+            return findSD(state, date, node.left);
         }
         else {
-            return find(state, node.right);
+            return findSD(state, date, node.right);
         }
 	    
 	}
@@ -198,25 +207,31 @@ public class BST {
         return updated;
 	}
 	
-	int removeCounter = 0;
 	
-	public int removeGrade(TreeNode current, String grade) {
-	    int numericalGrade = getNumericalGrade(grade);
-	    
-        
-	    if (current.equals(fly)) {
-	        return removeCounter;
-	    }
-	    
-	    removeGrade(current.left, grade);
-	    
-	    if (getNumericalGrade(current.getData().getGrade()) <= numericalGrade) {
-	        this.remove(current.getData().data);
-	        removeCounter++;
-	    }
-	    
-	    removeGrade(current.right, grade);
+	
+	public int removeGrade(String grade) {
+	    int removeCounter = 0;
 	    return removeCounter;
+//	    while (!this.findGrade(this.root, grade).equals(fly)) {
+//	        
+//	    }
+	    
+//	    int numericalGrade = getNumericalGrade(grade);
+//	    
+//        
+//	    if (current.equals(fly)) {
+//	        return removeCounter;
+//	    }
+//	    
+//	    removeGrade(current.left, grade);
+//	    
+//	    if (getNumericalGrade(current.getData().getGrade()) <= numericalGrade) {
+//	        this.remove(current.getData().data);
+//	        removeCounter++;
+//	    }
+//	    
+//	    removeGrade(current.right, grade);
+//	    return removeCounter;
 	}
 	
     private int getNumericalGrade(String qualityGrade) {
