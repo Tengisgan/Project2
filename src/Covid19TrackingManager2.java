@@ -182,7 +182,6 @@ public class Covid19TrackingManager2 {
                 // Save the new strings back into new data
                 newDataAr[0] = newDate;
                 newDataAr[1] = newState;
-                System.out.println(newState + " " + newDate);
 
                 // attempt to find the data in the bst
                 Data existingData = bst.findSD(newState, newDate, bst.root).getData();
@@ -255,7 +254,7 @@ public class Covid19TrackingManager2 {
         
         // remove records from the bst
         String grade = params[1];
-        int removed = bst.removeGrade(bst.root, grade);
+        int removed = bst.removeGrade(grade);
         
         System.out.println(Integer.toString(removed) + " records with quality grade lower or equal to " + grade + " have been removed");
     }
