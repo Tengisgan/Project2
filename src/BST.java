@@ -76,7 +76,7 @@ public class BST {
 	            return node;
 	        }
 	        
-            if(node.getData().getDate().compareTo(date) < 0) {
+            if(node.getData().getDate().compareTo(date) > 0) {
                 return findSD(state, date, node.left);
 	            }
             else {
@@ -84,7 +84,7 @@ public class BST {
             }
 	    }	    
 	    
-	    else if (node.getData().getState().compareTo(state) < 0) {
+	    else if (node.getData().getState().compareTo(state) > 0) {
             return findSD(state, date, node.left);
         }
         else {
