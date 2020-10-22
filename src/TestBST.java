@@ -15,15 +15,17 @@ public class TestBST extends TestCase {
     private String[] data1;
     private String[] data2;
     private String[] data3;
+    private String[] data4;
     private String[] emptyData;
     
     public void setUp() {
         bst = new BST();
         
-        data1 = new String[] {"1", "VA"};
-        data2 = new String[] {"2", "ZA"};
-        data3 = new String[] {"0", "VA"};
-        emptyData = new String[] {"", ""};
+        data1 = new String[] {"1", "VA", "", "", "", "", "", "", "C", ""};
+        data2 = new String[] {"2", "ZA",  "", "", "", "", "", "", "A", ""};
+        data3 = new String[] {"0", "VA",  "", "", "", "", "", "", "D", ""};
+        data4 = new String[] {"0", "VA",  "", "", "", "", "", "", "F", ""};
+        emptyData = new String[] {"", "", "", "", "", "", "", "", "", ""};
     }
     
     public void testInsert() {
@@ -78,5 +80,15 @@ public class TestBST extends TestCase {
     public void testUpdateData() { 
         bst.updateData(emptyData, data1);
         assertEquals(emptyData[0], "1");
+    }
+    
+    public void testRemoveGrade() {
+        bst.root = bst.insert(bst.root, data1);
+        bst.insert(bst.root, data2);
+        bst.insert(bst.root, data3);
+        bst.insert(bst.root, data4);
+        assertEquals(bst.removeGrade(bst.root, "C"), 3);
+        assertEquals(bst.find("ZA", bst.root).getData().data[0], "2");
+        assertNull(bst.find("VA", bst.root).getData());
     }
 }
