@@ -151,6 +151,7 @@ public class BST {
     
     
     public TreeNode removeHelper(TreeNode current, String[] value) {
+    	System.out.println("helper");
         if (current.equals(fly)) {
             return current;
         }
@@ -230,6 +231,7 @@ public class BST {
 	}
 	
 	public TreeNode removeGrade(TreeNode current, String grade) {
+		System.out.println("here");
 	    
 	    if (!current.left.equals(fly)) {
 	        removeGrade(current.left, grade);
@@ -248,6 +250,7 @@ public class BST {
 	public int removeGrade(String grade) {
 	    int numNodesBefore = this.numNodes;
 	    removeGrade(root, grade);
+	    System.out.println("where");
 	    return numNodesBefore - this.numNodes;
 	}
 	
