@@ -317,35 +317,217 @@ public class BST {
 	    return output;
 	}
 	
-	
 	public String getLatestDate() {
 	    return "";
 	}
 	
+	
+	///////////////////////////////////////////////////////////////////////////////////////
+	// Nikolai's BST Functions
+	///////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	// Dump Print /////////////////////////////////////////////////////////////////////////
+	public int dumpPrint(int id) {
+    	sortedPrint(root, id, 0);
+    	return 0;
+    }
+	
+	// State print ////////////////////////////////////////////////////////////////////////
+	private int stateCount;
+	
 	public int printState(String state) {
-		return 0;
+		stateCount = 0;
+		traverseState(root, state);
+		return stateCount;
 	}
 	
-	public int printCases(int numCases, String date) {
-		return 0;
+	private void traverseState(TreeNode current, String state) {
+		// check null
+		if (current.getData().equals(null)) {
+			return;
+		}
+		// if state match, print
+		if (current.getData().getState().equals(state)) {
+			current.getData().printData();
+			stateCount++;
+		}
+		// check left
+		if (!current.getData().left.getData().equals(null)) {
+			traverseState(current.getData().left, state);
+		}
+		// check right
+		if (!current.getData().right.getData().equals(null)) {
+			traverseState(current.getData().right, state);
+		}
+		return;
 	}
 	
-	public String[] printAverage(int avg, String date) {
-		String[] re = {"0", "-", "-"};
+	// Continuously print /////////////////////////////////////////////////////////////
+	
+	///////////////////////////////////////////////////////////////////////////////////
+	// Average print in the past NUMBER of days starting at the Specified Date
+	private ArrayList<String> getLatestDatesNum(String startDate, int numDays) {
+		ArrayList<String> dates = new  ArrayList<String>(numDays);
+		dates.set(0, startDate);
+		int day;
+		int month;
+		for (int index = 1; index < numDays; index++) {
+			// update the month
+			if (startDate.substring(3, 5).equals("01")) {
+				month = Integer.parseInt(startDate.substring(0, 3))-1;
+				if (month == 1 || month == 3 || month == 5 || 
+						month == 7 || month == 8 || month == 10 || month == 12) {
+					day = 32;
+				}
+				else {
+					day = 31;
+				}
+			}
+			else {
+				day = Integer.parseInt(startDate.substring(3, 5))-1;
+				month = Integer.parseInt(startDate.substring(0, 3));
+			}
+			startDate = Integer.toString(month) + "/" + Integer.toString(day) +
+					"/" + startDate.substring(5, 10);
+			dates.set(index, startDate);
+		}
+		return dates;
+	}
+	
+	public ArrayList<AverageState> avState;
+	
+	public String[] printAverage(int numDays, String startingDate) {
+		avState = new ArrayList<AverageState>();
+		ArrayList<String> dates = getLatestDatesNum(startingDate, numDays);
+		traverseAverage(root, dates);
+		avState = sortAv();
+		int siz = avState.size();
+		if (siz > 10) {
+			siz = 10;
+		}
+		return new String[] {Integer.toString(siz), startingDate, dates.get(numDays-1)};
+	}
+	
+	public void pA() {
+		for (int index = 0; index < 10; index++) {
+			System.out.println(avState.get(index).state + 
+					Integer.toString(avState.get(index).reAverage()));
+		}
+	}
+	
+	public class AverageState{
+		String state;
+		int average;
+		
+		public AverageState(String state, int num) {
+			this.state = state;
+			average = num;
+		}
+		
+		public void addAverage(int num) {
+			average += num;
+		}
+		
+		public int reAverage() {
+			return average/7;
+		}
+	}
+	
+	private ArrayList<AverageState> sortAv(){
+		ArrayList<AverageState> sorted = new ArrayList<AverageState>();
+		for (AverageState state : avState) {
+			for (int index = 0; index < sorted.size(); index++) {
+				AverageState sort = sorted.get(index);
+				if (state.reAverage() > sort.reAverage()) {
+					sorted.add(index, state);
+				}
+			}
+			if (sorted.size() == 0) {
+				sorted.add(state);
+			}
+		}
+		return sorted;
+	}
+	
+	private boolean checkDates(ArrayList<String> dates, String curDate) {
+		boolean re = false;
+		for (String date : dates) {
+			if (date.equals(curDate)) {
+				re = true;
+				break;
+			}
+		}
 		return re;
 	}
 	
-	public String[] printNumber(int num, String date) {
-		String[] re = {"0", "-", "-"};
-		return re;
+	private AverageState checkAvSt(String state) {
+		for (AverageState st : avState) {
+			if (st.state.equals(state)) {
+				return st;
+			}
+		}
+		return null;
 	}
 	
-	public int printQuality(String quality, String state, String date) {
-		return 0;
+	private void traverseAverage(TreeNode current, ArrayList<String> dates) {
+		// check null
+		if (current.getData().equals(null)) {
+			return;
+		}
+		// if date match, print
+		if (checkDates(dates, current.getData().getDate())) {
+			if (checkAvSt(current.getData().getState()).equals(null)) {
+				avState.add(new AverageState(current.getData().getState(), 
+						Integer.parseInt(current.getData().getPositive())));
+			}
+			else {
+				checkAvSt(current.getData().getState()).addAverage(
+						Integer.parseInt(current.getData().getPositive()));
+			}
+		}
+		// check left
+		if (!current.getData().left.getData().equals(null)) {
+			traverseAverage(current.getData().left, dates);
+		}
+		// check right
+		if (!current.getData().right.getData().equals(null)) {
+			traverseAverage(current.getData().right, dates);
+		}
+		return;
 	}
 	
+	/////////////////////////////////////////////////////////////////////////////
+	// Print all records in the past NUMBER of days starting at Specified Date
+	
+	// Quality print ///////////////////////////////////////////////////////////////////
+	
+	// Date print //////////////////////////////////////////////////////////////////////
+	private int dateCount;
 	public int printDate(String date) {
-		return 0;
+		dateCount = 0;
+		traverseDate(root, date);
+		return dateCount;
 	}
-	
+	private void traverseDate(TreeNode current, String date) {
+		// check null
+		if (current.getData().equals(null)) {
+			return;
+		}
+		// if date match, print
+		if (current.getData().getDate().equals(date)) {
+			current.getData().printData();
+			dateCount++;
+		}
+		// check left
+		if (!current.getData().left.getData().equals(null)) {
+			traverseDate(current.getData().left, date);
+		}
+		// check right
+		if (!current.getData().right.getData().equals(null)) {
+			traverseDate(current.getData().right, date);
+		}
+		return;
+	}
+	///////////////////////////////////////////////////////////////////////////////////
 }

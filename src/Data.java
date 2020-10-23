@@ -50,4 +50,11 @@ public class Data extends TreeNode {
         public boolean compareGrades(TreeNode existing) {
         	return false;
         }
+        
+        public void printData() {
+    		for (String element : data) {
+    			System.out.print(element + " ");
+    		}
+    		System.out.print("\n");
+    	}
 }

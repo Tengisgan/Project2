@@ -299,6 +299,7 @@ public class Covid19TrackingManager2 {
             System.out.println("Top " + Integer.parseInt(dates[0]) + 
                     " states with the highest average daily positive cases from " + 
                     dates[1] + " to " + dates[2]);
+            bst.pA();
             return;
         }
         
@@ -377,10 +378,10 @@ public class Covid19TrackingManager2 {
         }
         
         int id = Integer.parseInt(params[1]);
-        //int records = bst.sortedPrint(id);
-        //System.out.println(Integer.toString(records) + " records have been printed");
-        int records = bst.dumpPrint(id);
-        System.out.println(Integer.toString(records) + " records have been printed");
+//        int records = bst.sortedPrint(id);
+//        System.out.println(Integer.toString(records) + " records have been printed");
+//        int records = bst.dumpPrint(id);
+//        System.out.println(Integer.toString(records) + " records have been printed");
     }
 
     /**
