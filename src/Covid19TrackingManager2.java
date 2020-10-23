@@ -207,9 +207,7 @@ public class Covid19TrackingManager2 {
                 	System.out.println(existingDataAr[8] + " " + newDataAr[8]);
                     System.out.println("Data has been updated for "
                         + newState + " " + newDate);
-                    bst.remove(existingDataAr);
-                    System.out.println(bst.findSD(newState, newDate, bst.root));
-                    bst.insert(bst.root, newDataAr);
+                    bst.replace(existingDataAr, newDataAr);
                     count++;
                     continue;
                 }
