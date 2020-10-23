@@ -136,6 +136,31 @@ public class BST {
 	    return current;
 	}
 	
+    public TreeNode insertByDate(TreeNode current, String[] value) {
+        if (current.equals(fly)) {
+            numNodes++; 
+            current = new Data(fly, value);
+            return current;
+        }
+        
+        if (value[0].compareTo(current.getData().getDate()) == 0) {
+            if(value[1].compareTo(current.getData().getState()) < 0) {
+                current.left = insertByDate(current.left, value);
+            }
+            else {
+                current.right = insertByDate(current.right, value);
+            }
+        }
+        else if (value[0].compareTo(current.getData().getDate()) < 0) {
+               current.left = insertByDate(current.left, value);
+        }
+        else {
+            current.right = insertByDate(current.right, value);
+        }
+        
+        return current;
+    }
+	
     public boolean isEmpty() {
         return (root.equals(fly));
     }
@@ -185,20 +210,6 @@ public class BST {
                 
             }
         }
-        
-//        else if (value[1].equals(current.getData().getState()) && value[0].equals(current.getData().getDate())) {
-//            if (current.left.equals(fly)) {
-//                return current.right;
-//            }
-//            
-//            else if (current.right.equals(fly)) {
-//                return current.left;
-//            }
-//            
-//            current.getData().data = minValue(root.right);
-//            
-//            current.right = removeHelper(current.right, current.getData().data);
-//        }
         
         return current;
     }
@@ -306,8 +317,9 @@ public class BST {
 	    return output;
 	}
 	
+	
 	public String getLatestDate() {
-		return "";
+	    return "";
 	}
 	
 	public int printState(String state) {

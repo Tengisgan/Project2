@@ -120,5 +120,12 @@ public class TestBST extends TestCase {
         
     }
     
+    public void testLatestDate() {
+        bst.root = bst.insert(bst.root, data1);
+        bst.insert(bst.root, data3);
+        bst.insert(bst.root, data2);
+        bst.insert(bst.root, data4);
+        //assertEquals(bst.getLatestDate(), "4");
+    }
     
 }
