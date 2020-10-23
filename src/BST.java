@@ -208,17 +208,15 @@ public class BST {
 	}
 	
 	public TreeNode removeGrade(TreeNode current, String grade) {
-	    if (current.left.equals(fly)) {
+	    if (!current.left.equals(fly)) {
 	        removeGrade(current.left, grade);
 	    }
         int numericalGrade = getNumericalGrade(current.getData().getGrade());
-        System.out.println("Numerical Grade: " + current.getData().getGrade() + " " + numericalGrade);
-        System.out.println("Actual grade: " + grade + " " + getNumericalGrade(grade));
         if (numericalGrade <= getNumericalGrade(grade)) {
-            System.out.println("Grade is less");
-            this.remove(current.getData().data);
+
+            remove(current.getData().getArray());
         }
-        if (current.right.equals(fly)) {
+        if (!current.right.equals(fly)) {
             removeGrade(current.right, grade);
         }
 	    return current;
@@ -226,7 +224,7 @@ public class BST {
 	
 	public int removeGrade(String grade) {
 	    int numNodesBefore = this.numNodes;
-	    root = removeGrade(this.root, grade);
+	    root = removeGrade(root, grade);
 	    return numNodesBefore - this.numNodes;
 	}
 	
