@@ -112,10 +112,11 @@ public class TestBST extends TestCase {
     public void testDumpDataSortedPrint() {
         String[] newData1 = {"20200722","SC","745","100","734","311","342","907","C","335"};
         String[] newData2 = {"20200730","AK","883", "482", "1", "684", "732", "43", "C+", "213"};
+        String[] newData3 = {"20200830","AZ","883", "482", "1", "684", "732", "43", "C+", "213"};
         bst.root = bst.insert(bst.root, newData1);
         bst.insert(bst.root, newData2);
+        bst.insert(bst.root, newData3);
         bst.sortedPrint(bst.root, 2, 0);
-        
         
     }
     

@@ -259,15 +259,15 @@ public class BST {
 
 	public void sortedPrint(TreeNode node, int type, int depth) {
 		if (type == 1) {
-		    if (node.right.equals(fly) && node.left.equals(fly)) {
-		        String format = String.format("%1$" + (depth * 2) + "s", "");
+		    if (node.equals(fly)) {
+		        String format = getSpaces(depth * 2);		        
 		        format += "E";
 		        System.out.println(format);
 		        return;
 		    }
 		    sortedPrint(node.left, 1, depth + 1);
 		    
-		    String format = String.format("%1$" + (depth * 2) + "s", "");
+		    String format = getSpaces(depth * 2);
 		    format += "<" + convertDate(node.getData().getDate()) + ", "
 		        + node.getData().getState() + "> " + node.getData().getPositive();
 		    System.out.println(format);
