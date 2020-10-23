@@ -53,11 +53,11 @@ public class BST {
 	        return fly;
 	    }
 	    
-	    if (node.getData().getState().equals(state)) {
+	    if (node.getData().getState().compareTo(state) == 0) {
 	        return node; 
 	    }
 	    
-	    if (node.getData().getState().compareTo(state) < 0) {
+	    else if (node.getData().getState().compareTo(state) < 0) {
 	        return find(state, node.left);
 	    }
 	    else {
@@ -213,8 +213,7 @@ public class BST {
 	    }
         int numericalGrade = getNumericalGrade(current.getData().getGrade());
         if (numericalGrade <= getNumericalGrade(grade)) {
-
-            remove(current.getData().getArray());
+            remove(current.getData().data);
         }
         if (!current.right.equals(fly)) {
             removeGrade(current.right, grade);
@@ -234,8 +233,41 @@ public class BST {
             (44 - ((int) qualityGrade.charAt(1)));
     }
 
-	public int sortedPrint(int type) {
-		return 0;
+	public void sortedPrint(TreeNode node, int type, int depth) {
+		if (type == 1) {
+		    if (node.right.equals(fly) && node.left.equals(fly)) {
+		        String format = String.format("%1$" + (depth * 2) + "s", "");
+		        format += "E";
+		        System.out.println(format);
+		        return;
+		    }
+		    sortedPrint(node.left, 1, depth + 1);
+		    
+		    String format = String.format("%1$" + (depth * 2) + "s", "");
+		    format += "<" + convertDate(node.getData().getDate()) + ", "
+		        + node.getData().getState() + "> " + node.getData().getPositive();
+		    System.out.println(format);
+		    
+		    sortedPrint(node.right, 1, depth + 1);
+		}
+		
+		else if (type == 2) {
+	          if (node.right.equals(fly) && node.left.equals(fly)) {
+	                String format = String.format("%1$" + (depth * 2) + "s", "");
+	                format += "E";
+	                System.out.println(format);
+	                return;
+	            }
+	            sortedPrint(node.left, 2, depth + 1);
+	            
+	            String format = String.format("%1$" + (depth * 2) + "s", "");
+	            format = "<" + node.getData().getState() + ", "
+	                + convertDate(node.getData().getDate()) + "> " + node.getData().getPositive();
+	            System.out.println(format);
+	            
+	            sortedPrint(node.right, 2, depth + 1);
+		}
+		
 	}
 	
 	public String getLatestDate() {

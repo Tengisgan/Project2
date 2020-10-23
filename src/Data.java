@@ -22,6 +22,10 @@ public class Data extends TreeNode {
             return data[1];
         }
         
+        public String getPositive() {
+            return data[2];
+        }
+        
         public String getGrade() {
             return data[8];
         }

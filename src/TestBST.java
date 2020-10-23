@@ -16,16 +16,17 @@ public class TestBST extends TestCase {
     private String[] data2;
     private String[] data3;
     private String[] data4;
+    private String[] sameData2;
     private String[] emptyData;
     
     public void setUp() {
         bst = new BST();
         
-        data1 = new String[] {"1", "VA", "", "", "", "", "", "", "C", ""};
-        data2 = new String[] {"2", "ZA",  "", "", "", "", "", "", "A", ""};
-        data3 = new String[] {"0", "VA",  "", "", "", "", "", "", "D", ""};
-        data4 = new String[] {"4", "VA",  "", "", "", "", "", "", "F", ""};
-        
+        data1 = new String[] {"1", "VA", "2", "", "", "", "", "", "C", ""};
+        data2 = new String[] {"2", "ZA",  "2", "", "", "", "", "", "A", ""};
+        data3 = new String[] {"0", "VA",  "3", "", "", "", "", "", "D", ""};
+        data4 = new String[] {"4", "VA",  "4", "", "", "", "", "", "F", ""};
+        sameData2 = new String[] {"2", "ZA",  "5", "", "", "", "", "", "A", ""};
         emptyData = new String[] {"", "", "", "", "", "", "", "", "", ""};
     }
     
@@ -57,10 +58,12 @@ public class TestBST extends TestCase {
     public void testFindSD() {
         bst.root = bst.insert(bst.root, data1);
         bst.insert(bst.root, data3);
+        bst.insert(bst.root, data2);
         
         assertEquals(bst.find("VA", bst.root).getData().data[0], data1[0]);
         assertEquals(bst.findSD("VA", "1", bst.root).getData().data[0], data1[0]);
         assertEquals(bst.findSD("VA", "0", bst.root).getData().data[0], data3[0]);
+        assertEquals(bst.findSD("ZA", "2", bst.root).getData().data[0], data2[0]);
     }
     public void testReturnMinValue() {
         bst.root = bst.insert(bst.root, data1);
@@ -71,7 +74,9 @@ public class TestBST extends TestCase {
     
     public void testRemove() {
         bst.root = bst.insert(bst.root, data1);
+        bst.insert(bst.root, data2);
         bst.remove(data1);
+        bst.remove(sameData2);
         assertEquals(bst.find("Something else", bst.root), bst.root);
 
     }
@@ -89,12 +94,26 @@ public class TestBST extends TestCase {
     }
     
     public void testRemoveGrade() {
-        bst.root = bst.insert(bst.root, data1);
-        bst.insert(bst.root, data2);
-        bst.insert(bst.root, data3);
-        bst.insert(bst.root, data4);
-        bst.removeGrade("C");
-        //assertEquals(bst.find("ZA", bst.root).getData().data[0], "2");
-        //assertNull(bst.find("VA", bst.root).getData());
+//        bst.root = bst.insert(bst.root, data1);
+//        bst.insert(bst.root, data2);
+//        bst.insert(bst.root, data3);
+//        bst.insert(bst.root, data4);
+//        bst.removeGrade("C");
+//        assertEquals(bst.findSD("ZA", "2", bst.root).getData().getDate(), "2");
+//        assertNull(bst.findSD("VA", "1", bst.root).getData());
+//        assertNull(bst.findSD("VA", "0", bst.root).getData());
+//        assertNull(bst.findSD("VA", "4", bst.root).getData());
     }
+    
+    public void testDumpDataSortedPrint() {
+        String[] newData1 = {"20200722","SC","745","100","734","311","342","907","C","335"};
+        String[] newData2 = {"20200730","AK","883", "482", "1", "684", "732", "43", "C+", "213"};
+        bst.root = bst.insert(bst.root, newData1);
+        bst.insert(bst.root, newData2);
+        bst.sortedPrint(bst.root, 2, 0);
+        
+        
+    }
+    
+    
 }
