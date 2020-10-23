@@ -377,8 +377,13 @@ public class Covid19TrackingManager2 {
         }
         
         int id = Integer.parseInt(params[1]);
+<<<<<<< HEAD
         //int records = bst.sortedPrint(id);
         //System.out.println(Integer.toString(records) + " records have been printed");
+=======
+        int records = bst.dumpPrint(id);
+        System.out.println(Integer.toString(records) + " records have been printed");
+>>>>>>> d48fff94723fdd558231d73bf4d19da765a8ac35
     }
 
     /**
