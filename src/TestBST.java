@@ -25,6 +25,7 @@ public class TestBST extends TestCase {
         data2 = new String[] {"2", "ZA",  "", "", "", "", "", "", "A", ""};
         data3 = new String[] {"0", "VA",  "", "", "", "", "", "", "D", ""};
         data4 = new String[] {"4", "VA",  "", "", "", "", "", "", "F", ""};
+        
         emptyData = new String[] {"", "", "", "", "", "", "", "", "", ""};
     }
     
@@ -70,13 +71,9 @@ public class TestBST extends TestCase {
     
     public void testRemove() {
         bst.root = bst.insert(bst.root, data1);
-        bst.insert(bst.root, data2);
-        bst.insert(bst.root, data3);
         bst.remove(data1);
-        bst.remove(data2);
-        bst.remove(data3);
         assertEquals(bst.find("Something else", bst.root), bst.root);
-        
+
     }
     
     public void testReplace() {
@@ -91,13 +88,14 @@ public class TestBST extends TestCase {
         assertEquals(emptyData[0], "1");
     }
     
-//    public void testRemoveGrade() {
-//        bst.root = bst.insert(bst.root, data1);
-//        bst.insert(bst.root, data2);
-//        bst.insert(bst.root, data3);
-//        bst.insert(bst.root, data4);
-//        assertEquals(bst.removeGrade("F"), 1);
-//        assertEquals(bst.find("ZA", bst.root).getData().data[0], "2");
-//        assertNull(bst.find("VA", bst.root).getData());
-//    }
+    public void testRemoveGrade() {
+        bst.root = bst.insert(bst.root, data1);
+        bst.insert(bst.root, data2);
+        bst.insert(bst.root, data3);
+        bst.insert(bst.root, data4);
+        bst.removeGrade("A");
+        //assertEquals(bst.removeGrade("C"), 3);
+        assertEquals(bst.find("ZA", bst.root).getData().data[0], "2");
+        assertNull(bst.find("VA", bst.root).getData());
+    }
 }
