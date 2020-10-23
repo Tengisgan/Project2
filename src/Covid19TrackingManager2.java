@@ -204,12 +204,9 @@ public class Covid19TrackingManager2 {
                 // if new data has a better grade than the existing data
                 // replace the old with the new
                 if (bst.root.getData().existingDataGradeIsLessThan(existingDataAr, newDataAr)) {
-                	System.out.println(existingDataAr[8] + " " + newDataAr[8]);
                     System.out.println("Data has been updated for "
                         + newState + " " + newDate);
-                    bst.remove(existingDataAr);
-                    System.out.println(bst.findSD(newState, newDate, bst.root));
-                    bst.insert(bst.root, newDataAr);
+                    bst.replace(existingDataAr, newDataAr);
                     count++;
                     continue;
                 }
@@ -236,7 +233,6 @@ public class Covid19TrackingManager2 {
             System.out.println("Finished loading " + filename + " file");
             System.out.println(count + " records have been loaded");
             input.close();
-            System.out.println(bst.isEmpty());
         }
 
         // invalid filename parameter
