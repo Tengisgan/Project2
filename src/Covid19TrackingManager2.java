@@ -47,8 +47,8 @@ public class Covid19TrackingManager2 {
     /**
      * Field that stores the state values
     **/
-    private static Map<String, String> states = Map.ofEntries(
-    	new AbstractMap.SimpleEntry<>("al", "alabama"),
+    private static Map<String, String> states = Map.ofEntries (
+        new AbstractMap.SimpleEntry<>("al", "alabama"),
         new AbstractMap.SimpleEntry<>("ak", "alaska"),
         new AbstractMap.SimpleEntry<>("az", "arizona"),
         new AbstractMap.SimpleEntry<>("ar", "arkansas"),
@@ -143,12 +143,12 @@ public class Covid19TrackingManager2 {
                 // if all the elements are blank, continue
                 boolean cont = true;
                 for (String i : newDataAr) {
-                	if (!i.equals("")) {
-                		cont = false;
-                	}
+                    if (!i.equals("")) {
+                        cont = false;
+                    }
                 }
                 if (cont) {
-                	continue;
+                    continue;
                 }
 
                 // if state, date, or quality is empty, continue
@@ -170,10 +170,10 @@ public class Covid19TrackingManager2 {
                 
                 // Fix the state
                 if (newState.length() != 2) {
-                	newState = newDataAr[1].toUpperCase();
+                    newState = newDataAr[1].toUpperCase();
                 }
                 else {
-                	newState = newState.toUpperCase();
+                    newState = newState.toUpperCase();
                 }
                 
                 // Save the new date string
@@ -189,12 +189,12 @@ public class Covid19TrackingManager2 {
                 // INSERT NEW DATA
                 // if the bst does not contain the data, add the new data
                 if (existingData == null) { 
-                	if (bst.numNodes == 0) {
-                		bst.root = bst.insert(bst.root, newDataAr);
-                	}
-                	else {
-                		bst.insert(bst.root, newDataAr);
-                	}
+                    if (bst.numNodes == 0) {
+                        bst.root = bst.insert(bst.root, newDataAr);
+                    }
+                    else {
+                        bst.insert(bst.root, newDataAr);
+                    }
                     count++;
                     continue;
                 }
@@ -226,7 +226,7 @@ public class Covid19TrackingManager2 {
                 // there are no elements to be updated,
                 // so the new data is completely rejected
                 System.out.println("Low quality data"
-                		+ " rejected for " + newState);
+                        + " rejected for " + newState);
             }
 
 //            System.out.println(bst.root.getData().getState());
@@ -245,7 +245,7 @@ public class Covid19TrackingManager2 {
      * Function to remove data of a specified quality from the BST
     **/
     public void remove(String[] params){
-    	// if remove was called with more than a grade quality identifier
+        // if remove was called with more than a grade quality identifier
         if (params.length != 2){
             System.out.println("invalid remove params");
             return;
@@ -262,123 +262,123 @@ public class Covid19TrackingManager2 {
      * Function to seach for and print specified data from the BST 
     **/
     public void search(String[] params){
-    	// if search is called with no flags, search for the latest date
-    	String latestDate = bst.getLatestDate();
-    	String[] newParams = {"search", "-D", latestDate};
-    	if (params.length == 1) {
-    		params = newParams;
-    	}
-    	
-    	// -S
-    	if (params[1].equals("-S")) {
-    		String state = states.get(params[2].toLowerCase());
-    		int num = bst.printState(state);
-    		if (num == -1) return;
-    		System.out.println(Integer.toString(num) + 
-    				" records have been printed for state  " + state);
-    		return;
-    	}
-    	
-    	// -C
-    	if (params[1].equals("-C")) {
-    		int num = bst.printCases(Integer.parseInt(params[2]), latestDate);
-    		if (num == -1) return;
-    		System.out.println(Integer.toString(num) + 
-    				" states have daily numbers of positive cases greater than or equal to " + 
-    				params[2] + " for at least 7 days continuously");
-    		return;
-    	}
-    	
-    	// -T
-    	if (params[1].equals("-T")) {
-    		if (params.length == 5 && params[3].equals("-D")) {
-    			latestDate = params[4];
-    		}
-    		String[] dates = bst.printAverage(Integer.parseInt(params[2]), latestDate);
-    		if (dates == null) return;
-    		System.out.println("Top " + Integer.parseInt(dates[0]) + 
-    				" states with the highest average daily positive cases from " + 
-    				dates[1] + " to " + dates[2]);
-    		return;
-    	}
-    	
-    	// -N
-    	if (params[1].equals("-N")) {
-    		if (params.length == 5 && params[3].equals("-D")) {
-    			latestDate = params[4];
-    		}
-    		String[] dates = bst.printNumber(Integer.parseInt(params[2]), latestDate);
-    		if (dates == null) return;
-    		System.out.println(Integer.parseInt(dates[0]) + 
-    				" records have been printed from " + dates[1] + " to " + dates[2]);
-    		return;
-    	}
-    	
-    	// -Q
-    	if (params[1].equals("-Q")) {
-    		if (params.length >= 5) {
-    			if (params[3].equals("-S")) {
-    				String state = states.get(params[4].toLowerCase());
-    				if (params.length == 7) {
-    					int num = bst.printQuality(params[2], state, params[6]);
-    					if (num == -1) return;
-    					System.out.println(Integer.toString(num) + 
-    							" records have been printed with better or equal than quality grade " + 
-    							params[2] + " for state " + state + " on date " + params[6]);
-    					return;
-    				}
-    				int num = bst.printQuality(params[2], state, "");
-    				if (num == -1) return;
-    				System.out.println(Integer.toString(num) + 
-    						" records have been printed with better or equal than quality grade " + 
-    						params[2] + " for state " + state);
-    				return;
-    			}
-    			if (params.length == 7) {
-    				String state = states.get(params[6].toLowerCase());
-    				int num = bst.printQuality(params[2], state, params[4]);
-    				if (num == -1) return;
-    				System.out.println(Integer.toString(num) + 
-    						" records have been printed with better or equal than quality grade " + 
-    						params[2] + " for state " + state + " on date " + params[4]);
-    				return;
-    			}
-    			int num = bst.printQuality(params[2], "", params[4]);
-    			if (num == -1) return;
-    			System.out.println(Integer.toString(num) + 
-    					" records have been printed with better or equal than quality grade " + 
-    					params[2] + " on date " + params[4]);
-    			return;
-    		}
-    		int num = bst.printQuality(params[2], "", "");
-    		if (num == -1) return;
-    		System.out.println(Integer.toString(num) + " records have been printed with better or equal than quality grade " + params[2]);
-    	}
-    	
-    	// -D
-    	if (params[1].equals("-D")) {
-    		int num = bst.printDate(params[2]);
-    		if (num == -1) return;
-    		System.out.println(Integer.toString(num) + " records have been printed on date " + params[2]);
-    		return;
-    	}
-    	
-    	System.out.println("search error");
+        // if search is called with no flags, search for the latest date
+        String latestDate = bst.getLatestDate();
+        String[] newParams = {"search", "-D", latestDate};
+        if (params.length == 1) {
+            params = newParams;
+        }
+        
+        // -S
+        if (params[1].equals("-S")) {
+            String state = states.get(params[2].toLowerCase());
+            int num = bst.printState(state);
+            if (num == -1) return;
+            System.out.println(Integer.toString(num) + 
+                    " records have been printed for state  " + state);
+            return;
+        }
+        
+        // -C
+        if (params[1].equals("-C")) {
+            int num = bst.printCases(Integer.parseInt(params[2]), latestDate);
+            if (num == -1) return;
+            System.out.println(Integer.toString(num) + 
+                    " states have daily numbers of positive cases greater than or equal to " + 
+                    params[2] + " for at least 7 days continuously");
+            return;
+        }
+        
+        // -T
+        if (params[1].equals("-T")) {
+            if (params.length == 5 && params[3].equals("-D")) {
+                latestDate = params[4];
+            }
+            String[] dates = bst.printAverage(Integer.parseInt(params[2]), latestDate);
+            if (dates == null) return;
+            System.out.println("Top " + Integer.parseInt(dates[0]) + 
+                    " states with the highest average daily positive cases from " + 
+                    dates[1] + " to " + dates[2]);
+            return;
+        }
+        
+        // -N
+        if (params[1].equals("-N")) {
+            if (params.length == 5 && params[3].equals("-D")) {
+                latestDate = params[4];
+            }
+            String[] dates = bst.printNumber(Integer.parseInt(params[2]), latestDate);
+            if (dates == null) return;
+            System.out.println(Integer.parseInt(dates[0]) + 
+                    " records have been printed from " + dates[1] + " to " + dates[2]);
+            return;
+        }
+        
+        // -Q
+        if (params[1].equals("-Q")) {
+            if (params.length >= 5) {
+                if (params[3].equals("-S")) {
+                    String state = states.get(params[4].toLowerCase());
+                    if (params.length == 7) {
+                        int num = bst.printQuality(params[2], state, params[6]);
+                        if (num == -1) return;
+                        System.out.println(Integer.toString(num) + 
+                                " records have been printed with better or equal than quality grade " + 
+                                params[2] + " for state " + state + " on date " + params[6]);
+                        return;
+                    }
+                    int num = bst.printQuality(params[2], state, "");
+                    if (num == -1) return;
+                    System.out.println(Integer.toString(num) + 
+                            " records have been printed with better or equal than quality grade " + 
+                            params[2] + " for state " + state);
+                    return;
+                }
+                if (params.length == 7) {
+                    String state = states.get(params[6].toLowerCase());
+                    int num = bst.printQuality(params[2], state, params[4]);
+                    if (num == -1) return;
+                    System.out.println(Integer.toString(num) + 
+                            " records have been printed with better or equal than quality grade " + 
+                            params[2] + " for state " + state + " on date " + params[4]);
+                    return;
+                }
+                int num = bst.printQuality(params[2], "", params[4]);
+                if (num == -1) return;
+                System.out.println(Integer.toString(num) + 
+                        " records have been printed with better or equal than quality grade " + 
+                        params[2] + " on date " + params[4]);
+                return;
+            }
+            int num = bst.printQuality(params[2], "", "");
+            if (num == -1) return;
+            System.out.println(Integer.toString(num) + " records have been printed with better or equal than quality grade " + params[2]);
+        }
+        
+        // -D
+        if (params[1].equals("-D")) {
+            int num = bst.printDate(params[2]);
+            if (num == -1) return;
+            System.out.println(Integer.toString(num) + " records have been printed on date " + params[2]);
+            return;
+        }
+        
+        System.out.println("search error");
     }
     
     /**
      * Function to print the BST
     **/
     public void dumpBST(String[] params){
-    	// if dump was called with more than a print identifier
+        // if dump was called with more than a print identifier
         if (params.length != 2){
             System.out.println("invalid dump params");
             return;
         }
         
         int id = Integer.parseInt(params[1]);
-        int records = bst.sortedPrint(id);
-        System.out.println(Integer.toString(records) + " records have been printed");
+        //int records = bst.sortedPrint(id);
+        //System.out.println(Integer.toString(records) + " records have been printed");
     }
 
     /**
