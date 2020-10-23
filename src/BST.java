@@ -152,30 +152,52 @@ public class BST {
     
     public TreeNode removeHelper(TreeNode current, String[] value) {
         if (current.equals(fly)) {
-            numNodes--;
             return current;
         }
-
+        
         if (value[1].compareTo(current.getData().getState()) < 0) {
             current.left = removeHelper(current.left, value);
         }
         else if (value[1].compareTo(current.getData().getState()) > 0){
             current.right = removeHelper(current.right, value);
         }
-        
-        else if (value[1].equals(current.getData().getState()) && value[0].equals(current.getData().getDate())) {
-            if (current.left.equals(fly)) {
-                return current.right;
+        else {
+            if (value[0].compareTo(current.getData().getDate()) < 0) {
+                current.left = removeHelper(current.left, value);
             }
-            
-            else if (current.right.equals(fly)) {
-                return current.left;
+            else if (value[0].compareTo(current.getData().getDate()) > 0){
+                current.right = removeHelper(current.right, value);
             }
-            
-            current.getData().data = minValue(root.right);
-            
-            current.right = removeHelper(current.right, current.getData().data);
+            else {
+                numNodes--;
+                if (current.left.equals(fly)) {
+                    return current.right;
+                }
+                
+                else if (current.right.equals(fly)) {
+                    return current.left;
+                }
+                
+                current.getData().data = minValue(root.right);
+                
+                current.right = removeHelper(current.right, current.getData().data);
+                
+            }
         }
+        
+//        else if (value[1].equals(current.getData().getState()) && value[0].equals(current.getData().getDate())) {
+//            if (current.left.equals(fly)) {
+//                return current.right;
+//            }
+//            
+//            else if (current.right.equals(fly)) {
+//                return current.left;
+//            }
+//            
+//            current.getData().data = minValue(root.right);
+//            
+//            current.right = removeHelper(current.right, current.getData().data);
+//        }
         
         return current;
     }
@@ -208,12 +230,14 @@ public class BST {
 	}
 	
 	public TreeNode removeGrade(TreeNode current, String grade) {
+	    
 	    if (!current.left.equals(fly)) {
 	        removeGrade(current.left, grade);
 	    }
         int numericalGrade = getNumericalGrade(current.getData().getGrade());
+        
         if (numericalGrade <= getNumericalGrade(grade)) {
-            remove(current.getData().data);
+            this.remove(current.getData().data);
         }
         if (!current.right.equals(fly)) {
             removeGrade(current.right, grade);
@@ -223,7 +247,7 @@ public class BST {
 	
 	public int removeGrade(String grade) {
 	    int numNodesBefore = this.numNodes;
-	    root = removeGrade(root, grade);
+	    removeGrade(root, grade);
 	    return numNodesBefore - this.numNodes;
 	}
 	
@@ -252,22 +276,31 @@ public class BST {
 		}
 		
 		else if (type == 2) {
-	          if (node.right.equals(fly) && node.left.equals(fly)) {
-	                String format = String.format("%1$" + (depth * 2) + "s", "");
+	          if (node.equals(fly)) {
+	                String format = getSpaces(depth * 2);
 	                format += "E";
 	                System.out.println(format);
 	                return;
 	            }
 	            sortedPrint(node.left, 2, depth + 1);
-	            
-	            String format = String.format("%1$" + (depth * 2) + "s", "");
-	            format = "<" + node.getData().getState() + ", "
+	            //System.out.println(String.format("%"+ 5 +"s", " ") + "HELLO");
+	            //String format = "";
+	            String format = getSpaces(depth * 2);
+	            format += "<" + node.getData().getState() + ", "
 	                + convertDate(node.getData().getDate()) + "> " + node.getData().getPositive();
 	            System.out.println(format);
 	            
 	            sortedPrint(node.right, 2, depth + 1);
 		}
 		
+	}
+	
+	public String getSpaces(int amount) {
+	    String output = "";
+	    for (int i = 0; i < amount; i++) {
+	        output += " ";
+	    }
+	    return output;
 	}
 	
 	public String getLatestDate() {
