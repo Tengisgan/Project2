@@ -47,72 +47,134 @@ public class Covid19TrackingManager2 {
     /**
      * Field that stores the state values
     **/
-    private static Map<String, String> states = Map.ofEntries (
-        new AbstractMap.SimpleEntry<>("al", "alabama"),
-        new AbstractMap.SimpleEntry<>("ak", "alaska"),
-        new AbstractMap.SimpleEntry<>("az", "arizona"),
-        new AbstractMap.SimpleEntry<>("ar", "arkansas"),
-        new AbstractMap.SimpleEntry<>("ca", "california"),
-        new AbstractMap.SimpleEntry<>("co", "colorado"),
-        new AbstractMap.SimpleEntry<>("ct", "connecticut"),
-        new AbstractMap.SimpleEntry<>("de", "delaware"),
-        new AbstractMap.SimpleEntry<>("fl", "florida"),
-        new AbstractMap.SimpleEntry<>("ga", "georgia"),
-        new AbstractMap.SimpleEntry<>("hi", "hawaii"),
-        new AbstractMap.SimpleEntry<>("id", "idaho"),
-        new AbstractMap.SimpleEntry<>("il", "illinois"),
-        new AbstractMap.SimpleEntry<>("in", "indiana"),
-        new AbstractMap.SimpleEntry<>("ia", "iowa"),
-        new AbstractMap.SimpleEntry<>("ks", "kansas"),
-        new AbstractMap.SimpleEntry<>("ky", "kentucky"),
-        new AbstractMap.SimpleEntry<>("la", "louisiana"),
-        new AbstractMap.SimpleEntry<>("me", "maine"),
-        new AbstractMap.SimpleEntry<>("md", "maryland"),
-        new AbstractMap.SimpleEntry<>("ma", "massachusetts"),
-        new AbstractMap.SimpleEntry<>("mi", "michigan"),
-        new AbstractMap.SimpleEntry<>("mn", "minnesota"),
-        new AbstractMap.SimpleEntry<>("ms", "mississippi"),
-        new AbstractMap.SimpleEntry<>("mo", "missouri"),
-        new AbstractMap.SimpleEntry<>("mt", "montana"),
-        new AbstractMap.SimpleEntry<>("ne", "nebraska"),
-        new AbstractMap.SimpleEntry<>("nv", "nevada"),
-        new AbstractMap.SimpleEntry<>("nh", "new hampshire"),
-        new AbstractMap.SimpleEntry<>("nj", "new jersey"),
-        new AbstractMap.SimpleEntry<>("nm", "new mexico"),
-        new AbstractMap.SimpleEntry<>("ny", "new york"),
-        new AbstractMap.SimpleEntry<>("nc", "north carolina"),
-        new AbstractMap.SimpleEntry<>("nd", "north dakota"),
-        new AbstractMap.SimpleEntry<>("oh", "ohio"),
-        new AbstractMap.SimpleEntry<>("ok", "oklahoma"),
-        new AbstractMap.SimpleEntry<>("or", "oregon"),
-        new AbstractMap.SimpleEntry<>("pa", "pennsylvania"),
-        new AbstractMap.SimpleEntry<>("ri", "rhode island"),
-        new AbstractMap.SimpleEntry<>("sc", "south carolina"),
-        new AbstractMap.SimpleEntry<>("sd", "south dakota"),
-        new AbstractMap.SimpleEntry<>("tn", "tennessee"),
-        new AbstractMap.SimpleEntry<>("tx", "texas"),
-        new AbstractMap.SimpleEntry<>("ut", "utah"),
-        new AbstractMap.SimpleEntry<>("vt", "vermont"),
-        new AbstractMap.SimpleEntry<>("va", "virginia"),
-        new AbstractMap.SimpleEntry<>("wa", "washington"),
-        new AbstractMap.SimpleEntry<>("wv", "west virginia"),
-        new AbstractMap.SimpleEntry<>("wi", "wisconsin"),
-        new AbstractMap.SimpleEntry<>("wy", "wyoming"),
-        new AbstractMap.SimpleEntry<>("as", "american samoa"),
-        new AbstractMap.SimpleEntry<>("dc", "district of columbia"),
-        new AbstractMap.SimpleEntry<>("fm", "federated states of micronesia"),
-        new AbstractMap.SimpleEntry<>("gu", "guam"),
-        new AbstractMap.SimpleEntry<>("mh", "marshall islands"),
-        new AbstractMap.SimpleEntry<>("mp", "northern mariana islands"),
-        new AbstractMap.SimpleEntry<>("pw", "palau"),
-        new AbstractMap.SimpleEntry<>("pr", "puerto rico"),
-        new AbstractMap.SimpleEntry<>("vi", "virgin islands")
-    );
+    private static HashMap<String, String> states = new HashMap<String, String>();
+    
+    private static void fillMap() {
+    	states.put("al", "alabama");
+        states.put("ak", "alaska");
+        states.put("az", "arizona");
+        states.put("ar", "arkansas");
+        states.put("ca", "california");
+        states.put("co", "colorado");
+        states.put("ct", "connecticut");
+        states.put("de", "delaware");
+        states.put("fl", "florida");
+        states.put("ga", "georgia");
+        states.put("hi", "hawaii");
+        states.put("id", "idaho");
+        states.put("il", "illinois");
+        states.put("in", "indiana");
+        states.put("ia", "iowa");
+        states.put("ks", "kansas");
+        states.put("ky", "kentucky");
+        states.put("la", "louisiana");
+        states.put("me", "maine");
+        states.put("md", "maryland");
+        states.put("ma", "massachusetts");
+        states.put("mi", "michigan");
+        states.put("mn", "minnesota");
+        states.put("ms", "mississippi");
+        states.put("mo", "missouri");
+        states.put("mt", "montana");
+        states.put("ne", "nebraska");
+        states.put("nv", "nevada");
+        states.put("nh", "new hampshire");
+        states.put("nj", "new jersey");
+        states.put("nm", "new mexico");
+        states.put("ny", "new york");
+        states.put("nc", "north carolina");
+        states.put("nd", "north dakota");
+        states.put("oh", "ohio");
+        states.put("ok", "oklahoma");
+        states.put("or", "oregon");
+        states.put("pa", "pennsylvania");
+        states.put("ri", "rhode island");
+        states.put("sc", "south carolina");
+        states.put("sd", "south dakota");
+        states.put("tn", "tennessee");
+        states.put("tx", "texas");
+        states.put("ut", "utah");
+        states.put("vt", "vermont");
+        states.put("va", "virginia");
+        states.put("wa", "washington");
+        states.put("wv", "west virginia");
+        states.put("wi", "wisconsin");
+        states.put("wy", "wyoming");
+        states.put("as", "american samoa");
+        states.put("dc", "district of columbia");
+        states.put("fm", "federated states of micronesia");
+        states.put("gu", "guam");
+        states.put("mh", "marshall islands");
+        states.put("mp", "northern mariana islands");
+        states.put("pw", "palau");
+        states.put("pr", "puerto rico");
+        states.put("vi", "virgin islands");
+        states.put("alabama", "al");
+        states.put("alaska", "ak");
+        states.put("arizona", "az");
+        states.put("arkansas", "ar");
+        states.put("california", "ca");
+        states.put("colorado", "co");
+        states.put("connecticut", "ct");
+        states.put("delaware", "de");
+        states.put("florida", "fl");
+        states.put("georgia", "ga");
+        states.put("hawaii", "hi");
+        states.put("idaho", "id");
+        states.put("illinois", "il");
+        states.put("indiana", "in");
+        states.put("iowa", "ia");
+        states.put("kansas", "ks");
+        states.put("kentucky", "ky");
+        states.put("louisiana", "la");
+        states.put("maine", "me");
+        states.put("maryland", "md");
+        states.put("massachusetts", "ma");
+        states.put("michigan", "mi");
+        states.put("minnesota", "mn");
+        states.put("mississippi", "ms");
+        states.put("missouri", "mo");
+        states.put("montana", "mt");
+        states.put("nebraska", "ne");
+        states.put("nevada", "nv");
+        states.put("new hampshire", "nh");
+        states.put("new jersey", "nj");
+        states.put("new mexico", "nm");
+        states.put("new york", "ny");
+        states.put("north carolina", "nc");
+        states.put("north dakota", "nd");
+        states.put("ohio", "oh");
+        states.put("oklahoma", "ok");
+        states.put("oregon", "or");
+        states.put("pennsylvania", "pa");
+        states.put("rhode island", "ri");
+        states.put("south carolina", "sc");
+        states.put("south dakota", "sd");
+        states.put("tennessee", "tn");
+        states.put("texas", "tx");
+        states.put("utah", "ut");
+        states.put("vermont", "vt");
+        states.put("virginia", "va");
+        states.put("washington", "wa");
+        states.put("west virginia", "wv");
+        states.put("wisconsin", "wi");
+        states.put("wyoming", "wy");
+        states.put("american samoa", "as");
+        states.put("district of columbia", "dc");
+        states.put("federated states of micronesia", "fm");
+        states.put("guam", "gu");
+        states.put("marshall islands", "mh");
+        states.put("northern mariana islands", "mp");
+        states.put("palau", "pw");
+        states.put("puerto rico", "pr");
+        states.put("virgin islands", "vi");
+    }
 
     /**
      * Field storing the binary search tree containing the sorted data
     **/
     private BST bst = new BST();
+    private BST dateBST = new BST();
 
     /**
      * Function to load data from a file into the BST
@@ -191,9 +253,11 @@ public class Covid19TrackingManager2 {
                 if (existingData == null) { 
                     if (bst.numNodes == 0) {
                         bst.root = bst.insert(bst.root, newDataAr);
+                        dateBST.root = dateBST.insertByDate(dateBST.root, newDataAr);
                     }
                     else {
                         bst.insert(bst.root, newDataAr);
+                        dateBST.insertByDate(dateBST.root, newDataAr);
                     }
                     count++;
                     continue;
@@ -207,6 +271,7 @@ public class Covid19TrackingManager2 {
                     System.out.println("Data has been updated for "
                         + newState + " " + newDate);
                     bst.replace(existingDataAr, newDataAr);
+                    dateBST.replaceDate(existingDataAr, newDataAr);
                     count++;
                     continue;
                 }
@@ -214,7 +279,8 @@ public class Covid19TrackingManager2 {
                 // UPDATE OLD DATA WITH ELEMENTS OF NEW DATA
                 // if there are elements in the old data that can be updated,
                 // update them
-                if (bst.updateData(existingDataAr, newDataAr)) {
+                if (bst.updateData(bst.findSD(newState, newDate, bst.root).getData().data, newDataAr)) {
+                	dateBST.updateData(dateBST.findSDdate(newState, newDate, dateBST.root).getData().data, newDataAr);
                     System.out.println("Data has been updated f"
                         + "or the missing data in " 
                             + newState);
@@ -258,6 +324,8 @@ public class Covid19TrackingManager2 {
         System.out.println(Integer.toString(removed) + " records with quality grade lower or equal to " + grade + " have been removed");
     }
 
+    
+    private String header = "state   date         positive    negative    hospitalized   onVentilatorCurrently    onVentilatorCumulative   recovered   dataQualityGrade   death   ";
     /**
      * Function to seach for and print specified data from the BST 
     **/
@@ -271,16 +339,34 @@ public class Covid19TrackingManager2 {
         
         // -S
         if (params[1].equals("-S")) {
-            String state = states.get(params[2].toLowerCase());
-            int num = bst.printState(state);
+        	System.out.println(header);
+        	// try to get state from state map
+        	String newState = states.get(params[2].toLowerCase());
+        	
+        	// if return is null, invalid state
+        	if (newState == null) {
+        		System.out.println("invalid state");
+        		return;
+        	}
+        	
+        	// Fix the state
+            if (newState.length() != 2) {
+                newState = params[2].toUpperCase();
+            }
+            else {
+                newState = newState.toUpperCase();
+            }
+        	
+            int num = bst.printState(newState);
             if (num == -1) return;
             System.out.println(Integer.toString(num) + 
-                    " records have been printed for state  " + state);
+                    " records have been printed for state  " + newState);
             return;
         }
         
         // -C
         if (params[1].equals("-C")) {
+        	System.out.println(header);
             int num = bst.printCases(Integer.parseInt(params[2]), latestDate);
             if (num == -1) return;
             System.out.println(Integer.toString(num) + 
@@ -305,6 +391,7 @@ public class Covid19TrackingManager2 {
         
         // -N
         if (params[1].equals("-N")) {
+        	System.out.println(header);
             if (params.length == 5 && params[3].equals("-D")) {
                 latestDate = params[4];
             }
@@ -317,31 +404,62 @@ public class Covid19TrackingManager2 {
         
         // -Q
         if (params[1].equals("-Q")) {
+        	System.out.println(header);
             if (params.length >= 5) {
                 if (params[3].equals("-S")) {
-                    String state = states.get(params[4].toLowerCase());
+                	// try to get state from state map
+                	String newState = states.get(params[4].toLowerCase());
+                	
+                	// if return is null, invalid state
+                	if (newState == null) {
+                		System.out.println("invalid state");
+                		return;
+                	}
+                	
+                	// Fix the state
+                    if (newState.length() != 2) {
+                        newState = params[4].toUpperCase();
+                    }
+                    else {
+                        newState = newState.toUpperCase();
+                    }
                     if (params.length == 7) {
-                        int num = bst.printQuality(params[2], state, params[6]);
+                        int num = bst.printQuality(params[2], newState, params[6]);
                         if (num == -1) return;
                         System.out.println(Integer.toString(num) + 
                                 " records have been printed with better or equal than quality grade " + 
-                                params[2] + " for state " + state + " on date " + params[6]);
+                                params[2] + " for state " + newState + " on date " + params[6]);
                         return;
                     }
-                    int num = bst.printQuality(params[2], state, "");
+                    int num = bst.printQuality(params[2], newState, "");
                     if (num == -1) return;
                     System.out.println(Integer.toString(num) + 
                             " records have been printed with better or equal than quality grade " + 
-                            params[2] + " for state " + state);
+                            params[2] + " for state " + newState);
                     return;
                 }
                 if (params.length == 7) {
-                    String state = states.get(params[6].toLowerCase());
-                    int num = bst.printQuality(params[2], state, params[4]);
+                	// try to get state from state map
+                	String newState = states.get(params[6].toLowerCase());
+                	
+                	// if return is null, invalid state
+                	if (newState == null) {
+                		System.out.println("invalid state");
+                		return;
+                	}
+                	
+                	// Fix the state
+                    if (newState.length() != 2) {
+                        newState = params[6].toUpperCase();
+                    }
+                    else {
+                        newState = newState.toUpperCase();
+                    }
+                    int num = bst.printQuality(params[2], newState, params[4]);
                     if (num == -1) return;
                     System.out.println(Integer.toString(num) + 
                             " records have been printed with better or equal than quality grade " + 
-                            params[2] + " for state " + state + " on date " + params[4]);
+                            params[2] + " for state " + newState + " on date " + params[4]);
                     return;
                 }
                 int num = bst.printQuality(params[2], "", params[4]);
@@ -354,10 +472,12 @@ public class Covid19TrackingManager2 {
             int num = bst.printQuality(params[2], "", "");
             if (num == -1) return;
             System.out.println(Integer.toString(num) + " records have been printed with better or equal than quality grade " + params[2]);
+            return;
         }
         
         // -D
         if (params[1].equals("-D")) {
+        	System.out.println(header);
             int num = bst.printDate(params[2]);
             if (num == -1) return;
             System.out.println(Integer.toString(num) + " records have been printed on date " + params[2]);
@@ -377,11 +497,17 @@ public class Covid19TrackingManager2 {
             return;
         }
         
+        // check the dump type
         int id = Integer.parseInt(params[1]);
-//        int records = bst.sortedPrint(id);
-//        System.out.println(Integer.toString(records) + " records have been printed");
-//        int records = bst.dumpPrint(id);
-//        System.out.println(Integer.toString(records) + " records have been printed");
+        int num;
+        if (id == 1) {
+        	num = dateBST.printDump(id);
+        }
+        else {
+        	num = bst.printDump(id);
+        }
+        
+        System.out.println(Integer.toString(num) + " records have been printed");
     }
 
     /**
@@ -389,11 +515,18 @@ public class Covid19TrackingManager2 {
      * @throws FileNotFoundException 
     **/
     public static void main(String[] args) throws FileNotFoundException {
+        fillMap();
         Scanner inpt = new Scanner(new File(args[0]));
         String[] params;
 
         while (inpt.hasNextLine()){
             params = inpt.nextLine().split(" ");
+            if (params[0].length() == 0) {
+            	continue;
+            }
+            if (params[0].substring(0, 1).equals("\t")) {
+            	params[0] = params[0].substring(1, params[0].length());
+            }
             if (params[0].equals("load")){
                 main.load(params);
             }
@@ -405,9 +538,6 @@ public class Covid19TrackingManager2 {
             }
             else if (params[0].equals("dumpBST")){
                 main.dumpBST(params);
-            }
-            else{
-                System.out.println("input parse fail");
             }
         }
         

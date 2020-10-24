@@ -9,7 +9,7 @@ import student.TestCase;
  * 
  * @version 2020.09.29
  */
-public class TestBST extends TestCase {
+public class BSTTest extends TestCase {
     
     private BST bst; 
     private String[] data1;
@@ -69,7 +69,7 @@ public class TestBST extends TestCase {
         bst.root = bst.insert(bst.root, data1);
         bst.insert(bst.root, data2);
         bst.insert(bst.root, data3);
-        assertEquals(bst.minValue(bst.root), data3);
+        assertEquals(bst.minValue(bst.root).getData().data, data3);
     }
     
     public void testRemove() {
@@ -116,7 +116,7 @@ public class TestBST extends TestCase {
         bst.root = bst.insert(bst.root, newData1);
         bst.insert(bst.root, newData2);
         bst.insert(bst.root, newData3);
-        bst.sortedPrint(bst.root, 2, 0);
+        bst.traverseDump(bst.root, 2, 0);
         
     }
     

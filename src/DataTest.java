@@ -8,7 +8,7 @@ import student.TestCase;
  * 
  * @version 2020.09.29
  */
-public class TestData extends TestCase {
+public class DataTest extends TestCase {
 	String[] existingData;
 	String[] newData;
 	String[] sdat;

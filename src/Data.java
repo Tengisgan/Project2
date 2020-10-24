@@ -45,15 +45,21 @@ public class Data extends TreeNode {
             return qualityGrade.length() == 1 ? grade : grade + 
                 (44 - ((int) qualityGrade.charAt(1)));
         }
-
         
-        public boolean compareGrades(TreeNode existing) {
-        	return false;
+        public boolean gradeIsBetterOrEqual(String grade) {
+        	return getNumericalGrade(getGrade()) >= getNumericalGrade(grade) ?
+        			true : false;
         }
         
         public void printData() {
-    		for (String element : data) {
-    			System.out.print(element + " ");
+        	System.out.print(data[1] + " " + data[0]);
+    		for (int index = 2; index < data.length; index++) {
+    			if (data[index].equals("")) {
+    				System.out.print(" 0");
+    			}
+    			else {
+    				System.out.print(" " + data[index]);
+    			}
     		}
     		System.out.print("\n");
     	}

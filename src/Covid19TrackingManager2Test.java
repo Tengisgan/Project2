@@ -28,7 +28,7 @@ import student.TestCase;
  * @author Tengis Gantulga and Nikolai Long
  * @version 2020.09.29
  */
-public class TestManager extends TestCase {
+public class Covid19TrackingManager2Test extends TestCase {
 
 
     /* nohting to set up
