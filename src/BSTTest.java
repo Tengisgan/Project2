@@ -35,9 +35,9 @@ public class BSTTest extends TestCase {
         bst.root = bst.insert(bst.root, data1);
         
         
-        bst.insert(bst.root, data1);
+        bst.root = bst.insert(bst.root, data1);
         
-        bst.insert(bst.root, new String[] {"0", "VA"});
+        bst.root = bst.insert(bst.root, new String[] {"0", "VA"});
         
 
         assertFalse(bst.isEmpty());
@@ -49,6 +49,8 @@ public class BSTTest extends TestCase {
     public void testFind() {
         bst.root = bst.insert(bst.root, data1);
         TreeNode foundNode = bst.find("VA", bst.root);
+        TreeNode notFound = bst.find("ZA", bst.root);
+        assertEquals(notFound, bst.getFly());
         assertEquals(foundNode, bst.root);
         assertEquals(foundNode.left, bst.root.left);
         bst.insert(bst.root, data2); 
@@ -117,7 +119,7 @@ public class BSTTest extends TestCase {
         bst.insert(bst.root, newData2);
         bst.insert(bst.root, newData3);
         bst.traverseDump(bst.root, 2, 0);
-        
+        bst.traverseDump(bst.root, 1, 0);
     }
     
     public void testLatestDate() {

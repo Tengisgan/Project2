@@ -47,7 +47,9 @@ public class BST {
 	}
 	
 	//have to do in order traversal because it will return a tree
-	
+	public Flyweight getFly() {
+	    return fly;
+	}
 	public TreeNode find(String state, TreeNode node) {
 	    if (node.equals(fly)) {
 	        return fly;
@@ -57,7 +59,7 @@ public class BST {
 	        return node; 
 	    }
 	    
-	    else if (node.getData().getState().compareTo(state) < 0) {
+	    else if (node.getData().getState().compareTo(state) > 0) {
 	        return find(state, node.left);
 	    }
 	    else {
@@ -262,6 +264,7 @@ public class BST {
    
 	
 	public boolean updateData(String[] existingData, String[] newData) {
+	    this.remove(existingData);
         boolean updated = false;
         for (int i = 0; i < existingData.length; i++) {
             if (existingData[i].equals("") && !newData[i].equals("")) {
@@ -269,6 +272,7 @@ public class BST {
                 updated = true;
             }
         }
+        this.insert(this.root, existingData);
         return updated;
 	}
 	
@@ -372,20 +376,16 @@ public class BST {
 	
     public void traverseDump(TreeNode node, int type, int depth) {
         if (type == 1) {
-
-            if (node.right.equals(fly) && node.left.equals(fly)) {
-
+            
+            if (node.equals(fly)) {
                 String format = getSpaces(depth * 2);
                 format += "E";
                 System.out.println(format);
-
+                return;
             }
-
-
-            if (!node.left.equals(fly)) {
-                traverseDump(node.left, 1, depth + 1);
-            }
-
+            
+            traverseDump(node.left, 1, depth + 1);
+            
             String format = getSpaces(depth * 2);
             format += "<" + node.getData().getDate() + ", "
                 + node.getData().getState() + "> " + node.getData().getPositive();
@@ -398,18 +398,16 @@ public class BST {
         }
 
         else if (type == 2) {
-                if (!node.left.equals(fly)) {
-                    traverseDump(node.left, 2, depth + 1);
-                }
-
-                if (node.right.equals(fly) && node.left.equals(fly)) {
+                if (node.equals(fly)) {
 
                     String format = getSpaces(depth * 2);
                     format += "E";
                     System.out.println(format);
-
-
+                    return; 
+                    
                 }
+                
+                traverseDump(node.left, 2, depth + 1);
                 String format = getSpaces(depth * 2);
                 format += "<" + node.getData().getState() + ", "
                     + convertDate(node.getData().getDate()) + "> " + node.getData().getPositive();

@@ -40,20 +40,20 @@ public class Covid19TrackingManager2Test extends TestCase {
     /* the one and only test
      * @throws FileNotFoundException 
      */
-    public void test1() throws FileNotFoundException {
-        String[] params = {"SampleTest1.txt"};
-        Covid19TrackingManager2.main(params);
-        assertNotNull(params);
-    }
-
-//    /* test 2
-//     * @throws FileNotFoundException 
-//     */
-//    public void test2() throws FileNotFoundException {
-//        String[] params = {"SampleTest2.txt"};
+//    public void test1() throws FileNotFoundException {
+//        String[] params = {"SampleTest1.txt"};
 //        Covid19TrackingManager2.main(params);
 //        assertNotNull(params);
 //    }
+
+    /* test 2
+     * @throws FileNotFoundException 
+     */
+    public void test2() throws FileNotFoundException {
+        String[] params = {"SampleTest2.txt"};
+        Covid19TrackingManager2.main(params);
+        assertNotNull(params);
+    }
 
 
 }
